@@ -6,7 +6,7 @@ const props = defineProps({
     categories: { type: Array, required: true },
 });
 
-const emit = defineEmits(['stockIn', 'stockOut', 'updateLocation']);
+const emit = defineEmits(['stockIn', 'stockOut', 'updateLocation', 'scanRack']);
 
 const searchQuery = ref('');
 const selectedCategory = ref('All');
@@ -135,9 +135,17 @@ const filteredItems = computed(() => {
                             <div v-if="editingItemId !== item.id" class="flex items-center justify-between gap-3 group">
                                 <div class="flex items-center gap-2">
                                     <span class="h-2 w-2 rounded-full bg-amber-400"></span>
-                                    <span class="font-mono text-xs font-semibold text-slate-100 bg-slate-800 px-2.5 py-1 rounded border border-slate-700">
-                                        {{ item.location }}
-                                    </span>
+                                    <button
+                                        type="button"
+                                        @click="emit('scanRack', item.location)"
+                                        title="Buka popup mutasi stok untuk rak ini"
+                                        class="font-mono text-xs font-semibold text-slate-100 bg-slate-800 hover:bg-amber-500/20 hover:text-amber-300 hover:border-amber-500/50 px-2.5 py-1 rounded border border-slate-700 transition-all flex items-center gap-1.5"
+                                    >
+                                        <span>{{ item.location }}</span>
+                                        <svg class="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01" />
+                                        </svg>
+                                    </button>
                                 </div>
                                 <button
                                     @click="startEditLocation(item)"
@@ -183,12 +191,22 @@ const filteredItems = computed(() => {
                             </div>
                         </td>
 
-                        <!-- Stock -->
+                        <!-- Stock Multi-UoM -->
                         <td class="px-5 py-4 whitespace-nowrap text-center">
-                            <div class="text-base font-bold" :class="item.stock <= item.minStock ? 'text-rose-400' : 'text-slate-100'">
-                                {{ item.stock }}
+                            <div v-if="item.packaging_unit && item.conversion_factor > 1">
+                                <div class="text-sm font-bold font-mono" :class="item.stock <= item.minStock ? 'text-rose-400' : 'text-amber-300'">
+                                    {{ item.formatted_stock }}
+                                </div>
+                                <div class="text-[10px] text-slate-400 font-mono mt-0.5">
+                                    Total: {{ item.stock }} {{ item.base_unit || item.unit }} &bull; 1 {{ item.packaging_unit }} = {{ item.conversion_factor }} {{ item.base_unit || item.unit }}
+                                </div>
                             </div>
-                            <div class="text-[11px] text-slate-400">{{ item.unit }} (Min: {{ item.minStock }})</div>
+                            <div v-else>
+                                <div class="text-base font-bold font-mono" :class="item.stock <= item.minStock ? 'text-rose-400' : 'text-slate-100'">
+                                    {{ item.stock }}
+                                </div>
+                                <div class="text-[11px] text-slate-400">{{ item.base_unit || item.unit }} (Min: {{ item.minStock }})</div>
+                            </div>
                         </td>
 
                         <!-- Status & Condition -->

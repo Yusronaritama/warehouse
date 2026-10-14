@@ -63,12 +63,21 @@ const submit = () => {
 
             <!-- Password -->
             <div>
-                <InputLabel for="password" value="Password" class="!text-slate-300 !font-semibold text-xs" />
+                <div class="flex items-center justify-between mb-1">
+                    <InputLabel for="password" value="Password" class="!text-slate-300 !font-semibold text-xs" />
+                    <Link
+                        v-if="canResetPassword !== false"
+                        :href="route('password.request')"
+                        class="text-xs text-amber-400 hover:text-amber-300 font-medium transition-colors hover:underline"
+                    >
+                        Lupa Password?
+                    </Link>
+                </div>
 
                 <TextInput
                     id="password"
                     type="password"
-                    class="mt-1.5 block w-full !bg-slate-950 !border-slate-700 !text-white focus:!border-amber-500 focus:!ring-amber-500"
+                    class="block w-full !bg-slate-950 !border-slate-700 !text-white focus:!border-amber-500 focus:!ring-amber-500"
                     v-model="form.password"
                     required
                     autocomplete="current-password"
@@ -78,7 +87,7 @@ const submit = () => {
                 <InputError class="mt-1.5" :message="form.errors.password" />
             </div>
 
-            <!-- Remember me -->
+            <!-- Remember me & Register link -->
             <div class="flex items-center justify-between text-xs">
                 <label class="flex items-center cursor-pointer">
                     <Checkbox name="remember" v-model:checked="form.remember" class="!bg-slate-950 !border-slate-700 !text-amber-500 focus:!ring-amber-500" />
@@ -102,6 +111,20 @@ const submit = () => {
                 >
                     Masuk ke Terminal Warehouse
                 </PrimaryButton>
+            </div>
+
+            <!-- Bantuan / Quick Links -->
+            <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+                <span>Kendala akses akun?</span>
+                <Link
+                    :href="route('password.request')"
+                    class="text-amber-400 hover:text-amber-300 font-medium transition-colors hover:underline flex items-center gap-1"
+                >
+                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+                    </svg>
+                    Bantuan Reset Password
+                </Link>
             </div>
         </form>
     </GuestLayout>

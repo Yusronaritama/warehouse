@@ -49,7 +49,7 @@ const activeTab = ref('dashboard');
                         </Link>
 
                         <a
-                            href="#inventory-table"
+                            :href="route('dashboard') + '#inventory-table'"
                             class="px-3.5 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 transition-colors flex items-center gap-2"
                         >
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -59,7 +59,7 @@ const activeTab = ref('dashboard');
                         </a>
 
                         <a
-                            href="#stock-movement"
+                            :href="route('dashboard') + '#stock-movement'"
                             class="px-3.5 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 transition-colors flex items-center gap-2"
                         >
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -69,7 +69,7 @@ const activeTab = ref('dashboard');
                         </a>
 
                         <a
-                            href="#rack-locations"
+                            :href="route('dashboard') + '#rack-locations'"
                             class="px-3.5 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 transition-colors flex items-center gap-2"
                         >
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -77,6 +77,18 @@ const activeTab = ref('dashboard');
                             </svg>
                             Rack Zones
                         </a>
+
+                        <Link
+                            :href="route('barcodes.index')"
+                            class="px-3.5 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2"
+                            :class="route().current('barcodes.index') ? 'bg-amber-500/10 text-amber-400 border border-amber-500/30' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'"
+                        >
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
+                            </svg>
+                            Barcode & QR Rak
+                        </Link>
+
                         <Link
                             :href="route('logs.index')"
                             class="px-3.5 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2"
@@ -144,21 +156,31 @@ const activeTab = ref('dashboard');
             <div v-show="showingMobileMenu" class="sm:hidden border-t border-slate-800 bg-slate-950 px-4 pt-3 pb-4 space-y-2">
                 <Link
                     :href="route('dashboard')"
-                    class="block px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-slate-800"
+                    class="block px-3 py-2 rounded-md text-base font-medium transition-colors"
+                    :class="route().current('dashboard') ? 'text-amber-400 bg-amber-500/10' : 'text-slate-200 hover:bg-slate-800'"
                     @click="showingMobileMenu = false"
                 >
                     Dashboard
                 </Link>
                 <a
-                    href="#inventory-table"
+                    :href="route('dashboard') + '#inventory-table'"
                     class="block px-3 py-2 rounded-md text-base font-medium text-slate-400 hover:bg-slate-800"
                     @click="showingMobileMenu = false"
                 >
                     Item & Asset Master
                 </a>
                 <Link
+                    :href="route('barcodes.index')"
+                    class="block px-3 py-2 rounded-md text-base font-medium transition-colors"
+                    :class="route().current('barcodes.index') ? 'text-amber-400 bg-amber-500/10' : 'text-slate-400 hover:bg-slate-800'"
+                    @click="showingMobileMenu = false"
+                >
+                    Barcode & QR Rak
+                </Link>
+                <Link
                     :href="route('logs.index')"
-                    class="block px-3 py-2 rounded-md text-base font-medium text-slate-400 hover:bg-slate-800"
+                    class="block px-3 py-2 rounded-md text-base font-medium transition-colors"
+                    :class="route().current('logs.index') ? 'text-blue-400 bg-blue-500/10' : 'text-slate-400 hover:bg-slate-800'"
                     @click="showingMobileMenu = false"
                 >
                     Log Aktivitas Sistem

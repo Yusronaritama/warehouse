@@ -21,6 +21,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/warehouse/items', [WarehouseController::class, 'storeItem'])->name('warehouse.items.store');
     Route::patch('/warehouse/items/{item}/location', [WarehouseController::class, 'updateLocation'])->name('warehouse.items.location');
     Route::post('/warehouse/items/{item}/mutate', [WarehouseController::class, 'mutateStock'])->name('warehouse.items.mutate');
+
+    // Barcode Management & Rack Generator
+    Route::get('/barcodes', [\App\Http\Controllers\BarcodeController::class, 'index'])->name('barcodes.index');
+    Route::get('/barcodes/racks-list', [\App\Http\Controllers\BarcodeController::class, 'racksList'])->name('barcodes.racksList');
+    Route::post('/barcodes', [\App\Http\Controllers\BarcodeController::class, 'store'])->name('barcodes.store');
+    Route::patch('/barcodes/{barcode}/toggle', [\App\Http\Controllers\BarcodeController::class, 'toggleStatus'])->name('barcodes.toggle');
+    Route::delete('/barcodes/{barcode}', [\App\Http\Controllers\BarcodeController::class, 'destroy'])->name('barcodes.destroy');
+    Route::post('/barcodes/scan', [\App\Http\Controllers\BarcodeController::class, 'scan'])->name('barcodes.scan');
+    Route::post('/barcodes/{barcode}/print-log', [\App\Http\Controllers\BarcodeController::class, 'logPrint'])->name('barcodes.printLog');
 });
 
 Route::middleware('auth')->group(function () {

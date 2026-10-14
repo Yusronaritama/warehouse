@@ -24,12 +24,18 @@ class WarehouseController extends Controller
                 default => 'bg-rose-500/10 text-rose-400 border-rose-500/20',
             };
 
+            $sign = $movement->type === 'IN' ? '+' : '-';
+            $qtyString = "{$sign}{$movement->amount} {$movement->unit}";
+            if ($movement->input_amount && $movement->input_unit && $movement->input_unit !== $movement->unit) {
+                $qtyString = "{$sign}{$movement->input_amount} {$movement->input_unit} ({$movement->amount} {$movement->unit})";
+            }
+
             return [
                 'id' => $movement->id,
                 'type' => $movement->type,
                 'code' => $movement->code,
                 'itemName' => $movement->item_name,
-                'quantity' => ($movement->type === 'IN' ? '+' : '-').$movement->amount.' '.$movement->unit,
+                'quantity' => $qtyString,
                 'sourceOrTarget' => $movement->source_or_target,
                 'operator' => $movement->operator,
                 'timestamp' => $movement->created_at ? $movement->created_at->diffForHumans() : 'Just now',
@@ -121,11 +127,37 @@ class WarehouseController extends Controller
             'category' => 'required|string|max:100',
             'location' => 'required|string|max:255',
             'stock' => 'required|integer|min:0',
-            'unit' => 'required|string|max:50',
+            'unit' => 'nullable|string|max:50',
+            'base_unit' => 'nullable|string|max:50',
+            'packaging_unit' => 'nullable|string|max:50',
+            'conversion_factor' => 'nullable|integer|min:1',
+            'initial_unit' => 'nullable|string|max:50',
             'min_stock' => 'required|integer|min:0',
             'status' => 'required|string|max:50',
             'condition' => 'required|string|max:50',
         ]);
+
+        $baseUnit = $validated['base_unit'] ?: ($validated['unit'] ?: 'Unit');
+        $pkgUnit = !empty($validated['packaging_unit']) ? trim($validated['packaging_unit']) : null;
+        $factor = (int) ($validated['conversion_factor'] ?? 1);
+        if ($factor < 1) $factor = 1;
+
+        $inputStock = (int) $validated['stock'];
+        $initialUnit = $request->input('initial_unit', $baseUnit);
+
+        // Calculate actual stock in base unit
+        $baseStock = $inputStock;
+        if ($pkgUnit && $initialUnit === $pkgUnit && $factor > 1) {
+            $baseStock = $inputStock * $factor;
+        }
+
+        $validated['base_unit'] = $baseUnit;
+        $validated['packaging_unit'] = $pkgUnit;
+        $validated['conversion_factor'] = $factor;
+        $validated['stock'] = $baseStock;
+        $validated['unit'] = $baseUnit;
+
+        unset($validated['initial_unit']);
 
         $item = WarehouseItem::create($validated);
         $user = auth()->user() ? auth()->user()->name : 'Petugas Terminal';
@@ -137,19 +169,33 @@ class WarehouseController extends Controller
             'code' => $item->code,
             'item_name' => $item->name,
             'amount' => $item->stock,
-            'unit' => $item->unit,
+            'unit' => $item->base_unit,
+            'input_amount' => $inputStock,
+            'input_unit' => $initialUnit,
             'source_or_target' => 'Pendaftaran Aset Baru ('.$item->location.')',
             'operator' => $user,
         ]);
 
         // 2. Global Activity Log
+        $logQty = $initialUnit !== $baseUnit
+            ? "{$inputStock} {$initialUnit} ({$baseStock} {$baseUnit})"
+            : "{$baseStock} {$baseUnit}";
+
         ActivityLog::record(
             'INBOUND',
-            "Registrasi Barang Baru: {$item->name} (+{$item->stock} {$item->unit})",
+            "Registrasi Barang Baru: {$item->name} (+{$logQty})",
             "Kode: {$item->code} | Lokasi Rak: {$item->location} | Kategori: {$item->category}",
             $user,
             'emerald'
         );
+
+        if ($request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Barang berhasil didaftarkan ke database.',
+                'item' => $item,
+            ]);
+        }
 
         return redirect()->back()->with('success', 'Barang berhasil didaftarkan ke database.');
     }
@@ -174,7 +220,9 @@ class WarehouseController extends Controller
             'code' => $item->code,
             'item_name' => $item->name,
             'amount' => $item->stock,
-            'unit' => $item->unit,
+            'unit' => $item->base_unit ?: ($item->unit ?: 'Unit'),
+            'input_amount' => $item->stock,
+            'input_unit' => $item->base_unit ?: ($item->unit ?: 'Unit'),
             'source_or_target' => "Relokasi: {$oldLocation} -> {$item->location}",
             'operator' => $user,
         ]);
@@ -199,15 +247,23 @@ class WarehouseController extends Controller
         $validated = $request->validate([
             'type' => 'required|in:in,out',
             'amount' => 'required|integer|min:1',
+            'input_unit' => 'nullable|string|max:50',
             'notes' => 'nullable|string|max:255',
         ]);
 
-        $amount = $validated['amount'];
+        $inputAmount = (int) $validated['amount'];
+        $baseUnit = $item->base_unit ?: ($item->unit ?: 'Unit');
+        $inputUnit = $validated['input_unit'] ?? $baseUnit;
+        $baseDelta = $item->toBaseAmount($inputAmount, $inputUnit);
         $notes = $validated['notes'];
         $user = auth()->user() ? auth()->user()->name : 'Petugas Terminal';
 
+        $displayNote = ($inputUnit !== $baseUnit)
+            ? "{$inputAmount} {$inputUnit} ({$baseDelta} {$baseUnit})"
+            : "{$baseDelta} {$baseUnit}";
+
         if ($validated['type'] === 'in') {
-            $item->stock += $amount;
+            $item->stock += $baseDelta;
             if ($item->stock > $item->min_stock && $item->status === 'Low Stock') {
                 $item->status = 'Ready';
             }
@@ -218,25 +274,31 @@ class WarehouseController extends Controller
                 'type' => 'IN',
                 'code' => $item->code,
                 'item_name' => $item->name,
-                'amount' => $amount,
-                'unit' => $item->unit,
+                'amount' => $baseDelta,
+                'unit' => $baseUnit,
+                'input_amount' => $inputAmount,
+                'input_unit' => $inputUnit,
                 'source_or_target' => $notes ?: "Restock Inbound ke {$item->location}",
                 'operator' => $user,
             ]);
 
             ActivityLog::record(
                 'INBOUND',
-                "Barang Masuk (Inbound): {$item->name} (+{$amount} {$item->unit})",
+                "Barang Masuk (Inbound): {$item->name} (+{$displayNote})",
                 "SKU: {$item->code} | Lokasi: {$item->location} | Catatan/PO: ".($notes ?: 'Restock Rutin'),
                 $user,
                 'emerald'
             );
         } else {
-            if ($item->stock < $amount) {
-                return redirect()->back()->withErrors(['amount' => 'Stok tidak mencukupi untuk pengeluaran.']);
+            if ($item->stock < $baseDelta) {
+                $msg = "Stok tidak mencukupi! Tersedia {$item->formatted_stock} ({$item->stock} {$baseUnit}), diminta {$inputAmount} {$inputUnit} ({$baseDelta} {$baseUnit}).";
+                if ($request->wantsJson()) {
+                    return response()->json(['success' => false, 'message' => $msg], 422);
+                }
+                return redirect()->back()->withErrors(['amount' => $msg]);
             }
 
-            $item->stock -= $amount;
+            $item->stock -= $baseDelta;
             if ($item->stock <= $item->min_stock) {
                 $item->status = 'Low Stock';
             }
@@ -247,19 +309,29 @@ class WarehouseController extends Controller
                 'type' => 'OUT',
                 'code' => $item->code,
                 'item_name' => $item->name,
-                'amount' => $amount,
-                'unit' => $item->unit,
+                'amount' => $baseDelta,
+                'unit' => $baseUnit,
+                'input_amount' => $inputAmount,
+                'input_unit' => $inputUnit,
                 'source_or_target' => $notes ?: "Pengeluaran Outbound dari {$item->location}",
                 'operator' => $user,
             ]);
 
             ActivityLog::record(
                 'OUTBOUND',
-                "Barang Keluar (Outbound): {$item->name} (-{$amount} {$item->unit})",
+                "Barang Keluar (Outbound): {$item->name} (-{$displayNote})",
                 "SKU: {$item->code} | Dari: {$item->location} | Tujuan/Surat Jalan: ".($notes ?: 'Pengeluaran Logistik'),
                 $user,
                 'amber'
             );
+        }
+
+        if ($request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Mutasi stok berhasil disimpan.',
+                'item' => $item,
+            ]);
         }
 
         return redirect()->back()->with('success', 'Mutasi stok berhasil disimpan.');

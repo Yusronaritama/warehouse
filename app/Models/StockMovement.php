@@ -16,12 +16,15 @@ class StockMovement extends Model
         'item_name',
         'amount',
         'unit',
+        'input_amount',
+        'input_unit',
         'source_or_target',
         'operator',
     ];
 
     protected $casts = [
         'amount' => 'integer',
+        'input_amount' => 'integer',
     ];
 
     public function item()
