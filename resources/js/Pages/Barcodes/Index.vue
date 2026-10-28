@@ -166,8 +166,8 @@ async function handleQuickScan(code) {
 
         if (data && data.success) {
             scanFeedback.value = data;
-            openScanMutationModal(data.barcode ? data.barcode.barcode_code : code.trim());
-            router.reload({ only: ['barcodes', 'logs', 'metrics'] });
+            const targetRack = data.barcode ? data.barcode.rack_code : code.trim();
+            router.visit(route('racks.show', targetRack));
         } else {
             scanError.value = data?.message || `Barcode '${code}' tidak terdaftar di sistem.`;
         }

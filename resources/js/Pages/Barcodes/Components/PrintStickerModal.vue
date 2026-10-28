@@ -54,7 +54,12 @@ async function renderPrintCode() {
         }
     } else if (props.barcode.barcode_type === 'QR_CODE' && printCanvasRef.value) {
         try {
-            await QRCode.toCanvas(printCanvasRef.value, props.barcode.barcode_code, {
+            // Encode direct rack URL so smartphone camera immediately opens the page in browser
+            const directUrl = typeof window !== 'undefined'
+                ? `${window.location.origin}/racks/${encodeURIComponent(props.barcode.rack_code)}`
+                : props.barcode.barcode_code;
+
+            await QRCode.toCanvas(printCanvasRef.value, directUrl, {
                 width: 170,
                 margin: 2,
                 color: {

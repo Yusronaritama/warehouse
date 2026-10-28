@@ -43,7 +43,11 @@ async function renderLivePreview() {
     } else if (props.form.barcode_type === 'QR_CODE') {
         if (previewCanvasRef.value) {
             try {
-                await QRCode.toCanvas(previewCanvasRef.value, code, {
+                const directUrl = typeof window !== 'undefined'
+                    ? `${window.location.origin}/racks/${encodeURIComponent(props.form.rack_code || 'A-01')}`
+                    : code;
+
+                await QRCode.toCanvas(previewCanvasRef.value, directUrl, {
                     width: 130,
                     margin: 1,
                     color: {

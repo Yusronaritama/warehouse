@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue';
+import { Link } from '@inertiajs/vue3';
 
 const props = defineProps({
     barcodes: {
@@ -287,14 +288,26 @@ function getCategoryBadge(category) {
                             <!-- Aksi -->
                             <td class="py-3 px-3 text-right">
                                 <div class="inline-flex items-center gap-1.5">
+                                    <!-- Kelola Rak & CRUD Dedicated Page -->
+                                    <Link
+                                        :href="route('racks.show', item.rack_code)"
+                                        title="Buka Halaman Kelola Rak (CRUD Barang & Ubah Nama Rak)"
+                                        class="px-2.5 py-1.5 bg-amber-500/10 hover:bg-amber-500/25 text-amber-400 rounded-lg border border-amber-500/30 transition-all flex items-center gap-1.5 font-bold text-xs shadow-sm"
+                                    >
+                                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                        </svg>
+                                        <span>Kelola Rak</span>
+                                    </Link>
+
                                     <!-- Quick Scan & Stock Mutation Modal Button -->
                                     <button
                                         type="button"
                                         @click="emit('openMutation', item, item.items)"
                                         title="Buka Popup Mutasi Stok Rak Ini (IN / OUT)"
-                                        class="px-2.5 py-1.5 bg-amber-500/10 hover:bg-amber-500/25 text-amber-400 rounded-lg border border-amber-500/30 transition-all flex items-center gap-1.5 font-bold text-xs shadow-sm"
+                                        class="px-2 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg border border-slate-700 transition-all flex items-center gap-1 font-semibold text-xs shadow-sm"
                                     >
-                                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <svg class="w-3.5 h-3.5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                                         </svg>
                                         <span>Mutasi</span>
@@ -370,15 +383,24 @@ function getCategoryBadge(category) {
                                             </span>
                                         </div>
                                         <div class="flex items-center gap-2">
-                                            <button
-                                                type="button"
-                                                @click="emit('openMutation', item, item.items)"
+                                            <Link
+                                                :href="route('racks.show', item.rack_code)"
                                                 class="text-xs text-amber-400 hover:text-amber-300 flex items-center gap-1 font-bold bg-amber-500/10 px-2.5 py-1 rounded-lg border border-amber-500/30 transition-colors"
                                             >
                                                 <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                </svg>
+                                                <span>Kelola Rak & CRUD</span>
+                                            </Link>
+                                            <button
+                                                type="button"
+                                                @click="emit('openMutation', item, item.items)"
+                                                class="text-xs text-slate-300 hover:text-white flex items-center gap-1 font-semibold bg-slate-800 px-2.5 py-1 rounded-lg border border-slate-700 transition-colors"
+                                            >
+                                                <svg class="w-3.5 h-3.5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                                                 </svg>
-                                                <span>Mutasi Stok (IN / OUT)</span>
+                                                <span>Mutasi Stok</span>
                                             </button>
                                             <button
                                                 type="button"

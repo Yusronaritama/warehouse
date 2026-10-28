@@ -1,7 +1,8 @@
 <script setup>
 import { ref, computed, watch, nextTick, onMounted, onUnmounted } from 'vue';
-import { router } from '@inertiajs/vue3';
+import { router, Link } from '@inertiajs/vue3';
 import axios from 'axios';
+import LiveCameraScanner from '@/Components/Warehouse/LiveCameraScanner.vue';
 
 const props = defineProps({
     modelValue: {
@@ -27,6 +28,12 @@ const scanInput = ref('');
 const scanInputRef = ref(null);
 const isScanning = ref(false);
 const scanError = ref(null);
+const showCameraScanner = ref(false);
+
+function handleCameraScanned(code) {
+    scanInput.value = code;
+    executeScan(code);
+}
 
 const activeBarcode = ref(null);
 const rackItems = ref([]);
@@ -538,6 +545,19 @@ onUnmounted(() => {
                     </div>
 
                     <button
+                        type="button"
+                        @click="showCameraScanner = true"
+                        class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-slate-700 hover:border-cyan-500/50 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm active:scale-95"
+                        title="Pindai menggunakan kamera HP"
+                    >
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        <span class="hidden sm:inline">Kamera HP</span>
+                    </button>
+
+                    <button
                         type="submit"
                         :disabled="isScanning"
                         class="px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg text-xs font-bold transition-all disabled:opacity-50 flex items-center gap-1.5 shadow-md shadow-cyan-600/20 active:scale-95"
@@ -637,11 +657,20 @@ onUnmounted(() => {
                     </div>
                 </div>
 
-                <div class="flex items-center gap-3">
-                    <div class="text-right">
+                <div class="flex items-center gap-2">
+                    <div class="text-right mr-1 hidden sm:block">
                         <span class="text-[10px] uppercase tracking-wider text-slate-500 font-semibold block">Total Item Rak</span>
                         <span class="font-mono text-sm font-bold text-emerald-400">{{ rackItems.length }} SKU</span>
                     </div>
+
+                    <!-- Shortcut button: Buka Halaman Kelola Rak Penuh -->
+                    <Link
+                        :href="route('racks.show', activeBarcode.rack_code)"
+                        class="px-3 py-1.5 text-xs font-bold rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition-all flex items-center gap-1.5 active:scale-95 shadow-sm"
+                        title="Buka halaman penuh untuk CRUD barang & ubah nama rak"
+                    >
+                        <span>Kelola Rak (CRUD) &rarr;</span>
+                    </Link>
 
                     <!-- Shortcut button: + Tambah Barang ke Rak -->
                     <button
@@ -1148,6 +1177,12 @@ onUnmounted(() => {
                 </div>
             </div>
         </div>
+
+        <!-- Live Camera Scanner for Mobile / Laptop -->
+        <LiveCameraScanner
+            v-model="showCameraScanner"
+            @scanned="handleCameraScanned"
+        />
     </div>
 </template>
 

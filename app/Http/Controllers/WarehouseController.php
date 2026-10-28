@@ -336,4 +336,120 @@ class WarehouseController extends Controller
 
         return redirect()->back()->with('success', 'Mutasi stok berhasil disimpan.');
     }
+
+    /**
+     * Update warehouse item details.
+     */
+    public function updateItem(Request $request, WarehouseItem $item)
+    {
+        $validated = $request->validate([
+            'code'              => 'required|string|max:50|unique:warehouse_items,code,' . $item->id,
+            'name'              => 'required|string|max:255',
+            'category'          => 'required|string|max:100',
+            'location'          => 'required|string|max:255',
+            'stock'             => 'required|integer|min:0',
+            'unit'              => 'nullable|string|max:50',
+            'base_unit'         => 'nullable|string|max:50',
+            'packaging_unit'    => 'nullable|string|max:50',
+            'conversion_factor' => 'nullable|integer|min:1',
+            'initial_unit'      => 'nullable|string|max:50',
+            'min_stock'         => 'required|integer|min:0',
+            'status'            => 'required|string|max:50',
+            'condition'         => 'required|string|max:50',
+        ]);
+
+        $baseUnit = $validated['base_unit'] ?: ($validated['unit'] ?: 'Unit');
+        $pkgUnit = !empty($validated['packaging_unit']) ? trim($validated['packaging_unit']) : null;
+        $factor = (int) ($validated['conversion_factor'] ?? 1);
+        if ($factor < 1) $factor = 1;
+
+        $inputStock = (int) $validated['stock'];
+        $initialUnit = $request->input('initial_unit', $baseUnit);
+
+        // Calculate actual stock in base unit if user inputted in packaging unit
+        $baseStock = $inputStock;
+        if ($pkgUnit && $initialUnit === $pkgUnit && $factor > 1) {
+            $baseStock = $inputStock * $factor;
+        }
+
+        $oldStock = $item->stock;
+        $oldLocation = $item->location;
+
+        $validated['base_unit'] = $baseUnit;
+        $validated['packaging_unit'] = $pkgUnit;
+        $validated['conversion_factor'] = $factor;
+        $validated['stock'] = $baseStock;
+        $validated['unit'] = $baseUnit;
+        unset($validated['initial_unit']);
+
+        $item->update($validated);
+        $user = auth()->user() ? auth()->user()->name : 'Petugas Terminal';
+
+        // Log stock difference if changed
+        if ($oldStock !== $baseStock) {
+            $diff = $baseStock - $oldStock;
+            $type = $diff > 0 ? 'IN' : 'OUT';
+            StockMovement::create([
+                'warehouse_item_id' => $item->id,
+                'type'              => $type,
+                'code'              => $item->code,
+                'item_name'         => $item->name,
+                'amount'            => abs($diff),
+                'unit'              => $baseUnit,
+                'input_amount'      => abs($diff),
+                'input_unit'        => $baseUnit,
+                'source_or_target'  => "Penyesuaian Data / Edit Barang ({$oldLocation})",
+                'operator'          => $user,
+            ]);
+        }
+
+        ActivityLog::record(
+            'MAINTENANCE',
+            "Pembaruan Data Barang: {$item->name} ({$item->code})",
+            "Lokasi: {$item->location} | Stok: {$item->formatted_stock} | Kondisi: {$item->condition}",
+            $user,
+            'blue'
+        );
+
+        if ($request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => "Data barang '{$item->name}' berhasil diperbarui.",
+                'item'    => $item->fresh(),
+            ]);
+        }
+
+        return redirect()->back()->with('success', "Data barang '{$item->name}' berhasil diperbarui.");
+    }
+
+    /**
+     * Delete a warehouse item.
+     */
+    public function destroyItem(Request $request, WarehouseItem $item)
+    {
+        $user = auth()->user() ? auth()->user()->name : 'Petugas Terminal';
+        $itemName = $item->name;
+        $itemCode = $item->code;
+        $itemLocation = $item->location;
+        $itemStock = $item->formatted_stock;
+
+        ActivityLog::record(
+            'OUTBOUND',
+            "Penghapusan Barang: {$itemName} ({$itemCode})",
+            "Dihapus dari rak [{$itemLocation}] (Stok terakhir: {$itemStock})",
+            $user,
+            'rose'
+        );
+
+        $item->delete();
+
+        if ($request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => "Barang '{$itemName}' ({$itemCode}) berhasil dihapus.",
+            ]);
+        }
+
+        return redirect()->back()->with('success', "Barang '{$itemName}' ({$itemCode}) berhasil dihapus.");
+    }
 }

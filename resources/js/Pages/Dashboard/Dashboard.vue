@@ -71,8 +71,7 @@ onMounted(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const scanParam = urlParams.get('scan');
     if (scanParam) {
-        initialScanCode.value = scanParam;
-        isScanModalOpen.value = true;
+        router.visit(route('racks.show', scanParam));
     }
 });
 

@@ -439,17 +439,42 @@ class BarcodeController extends Controller
             $operator
         );
 
+        $redirectUrl = route('racks.show', $barcode->rack_code);
+
         if ($request->wantsJson()) {
             return response()->json([
-                'success' => true,
-                'barcode' => $barcode,
-                'items' => $items,
+                'success'      => true,
+                'barcode'      => $barcode,
+                'items'        => $items,
+                'redirect_url' => $redirectUrl,
             ]);
         }
 
+        if ($request->input('redirect', true)) {
+            return redirect()->route('racks.show', $barcode->rack_code);
+        }
+
         return redirect()->back()->with('scanResult', [
-            'barcode' => $barcode,
-            'items' => $items,
+            'barcode'      => $barcode,
+            'items'        => $items,
+            'redirect_url' => $redirectUrl,
         ]);
+    }
+
+    /**
+     * Handle HTTP GET barcode scan from mobile camera, QR code reader, or direct link.
+     * Examples: /scan/A-01, /scan?code=BC-A01-1024, /barcodes/scan?code=A-01
+     */
+    public function handleScanGet(Request $request, ?string $code = null)
+    {
+        $scanCode = $code ?: $request->query('code', $request->query('scan', ''));
+        $scanCode = trim($scanCode);
+
+        if (empty($scanCode)) {
+            return redirect()->route('barcodes.index')->withErrors(['scan' => 'Kode barcode tidak ditemukan.']);
+        }
+
+        // Forward directly to dedicated rack management page
+        return redirect()->route('racks.show', $scanCode);
     }
 }
