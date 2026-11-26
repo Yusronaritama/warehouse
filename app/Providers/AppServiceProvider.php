@@ -23,8 +23,8 @@ class AppServiceProvider extends ServiceProvider
     {
         Vite::prefetch(concurrency: 3);
 
-        // Paksa HTTPS supaya aset Vue dan request API tidak diblokir browser HP
-        if (env('APP_ENV') !== 'production') {
+        // Paksa HTTPS hanya jika APP_URL menggunakan https
+        if (str_starts_with((string) config('app.url'), 'https://')) {
             URL::forceScheme('https');
         }
     }
