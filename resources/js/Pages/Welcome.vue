@@ -146,7 +146,7 @@ function closeMenu()  { menuOpen.value = false; }
 </script>
 
 <template>
-    <Head title="WAREREX - Military Logistics & Defense Asset Command" />
+    <Head title="WAREFIVE - Military Logistics & Defense Asset Command" />
 
     <!-- 1. Cinematic Opening Overlay -->
     <CinematicIntroOverlay
@@ -220,7 +220,7 @@ function closeMenu()  { menuOpen.value = false; }
 
         <!-- 6. Footer -->
         <footer class="wms-footer" role="contentinfo">
-            <span>WAREREX Military Logistics & Heavy Defense Arsenal Command</span>
+            <span>WAREFIVE Military Logistics & Heavy Defense Arsenal Command</span>
             <span class="wms-footer-sep" aria-hidden="true">&bull;</span>
             <span>Running on Laravel v{{ laravelVersion }} (PHP v{{ phpVersion }})</span>
         </footer>

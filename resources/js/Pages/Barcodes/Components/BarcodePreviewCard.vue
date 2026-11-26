@@ -91,7 +91,7 @@ onMounted(() => {
             <!-- Top Strip: Facility and Zone -->
             <div class="w-full flex items-center justify-between pb-2 border-b-2 border-slate-900 font-bold text-xs uppercase tracking-wider">
                 <div class="flex items-center gap-1.5 text-slate-800">
-                    <span class="bg-slate-900 text-white px-1.5 py-0.5 rounded text-[10px]">WAREREX</span>
+                    <span class="bg-slate-900 text-white px-1.5 py-0.5 rounded text-[10px]">WAREFIVE</span>
                     <span>KRWNG LOGISTICS</span>
                 </div>
                 <span class="px-2 py-0.5 bg-slate-100 text-slate-900 rounded border border-slate-300 font-mono text-[11px]">

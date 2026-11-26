@@ -49,16 +49,6 @@ const activeTab = ref('dashboard');
                         </Link>
 
                         <a
-                            :href="route('dashboard') + '#inventory-table'"
-                            class="px-3.5 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 transition-colors flex items-center gap-2"
-                        >
-                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
-                            </svg>
-                            Item & Asset Master
-                        </a>
-
-                        <a
                             :href="route('dashboard') + '#stock-movement'"
                             class="px-3.5 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 transition-colors flex items-center gap-2"
                         >
@@ -66,16 +56,6 @@ const activeTab = ref('dashboard');
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
                             </svg>
                             Stock In / Out
-                        </a>
-
-                        <a
-                            :href="route('dashboard') + '#rack-locations'"
-                            class="px-3.5 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 transition-colors flex items-center gap-2"
-                        >
-                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
-                            </svg>
-                            Rack Zones
                         </a>
 
                         <Link
@@ -162,13 +142,6 @@ const activeTab = ref('dashboard');
                 >
                     Dashboard
                 </Link>
-                <a
-                    :href="route('dashboard') + '#inventory-table'"
-                    class="block px-3 py-2 rounded-md text-base font-medium text-slate-400 hover:bg-slate-800"
-                    @click="showingMobileMenu = false"
-                >
-                    Item & Asset Master
-                </a>
                 <Link
                     :href="route('barcodes.index')"
                     class="block px-3 py-2 rounded-md text-base font-medium transition-colors"
@@ -211,7 +184,7 @@ const activeTab = ref('dashboard');
         <!-- System Footer -->
         <footer class="border-t border-slate-800/60 py-4 bg-slate-950/40 text-center text-xs text-slate-500">
             <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-                <div>WAREREX Asset & Warehouse Operations Management &bull; v2.4.0</div>
+                <div>WAREFIVE Asset & Warehouse Operations Management &bull; v2.4.0</div>
                 <div class="flex items-center gap-4">
                     <span>Database: Connected</span>
                     <span>Scanner: Ready (HID/USB)</span>

@@ -8,7 +8,7 @@
             <path d="M7.5 4.5L16.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         <span class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-            WAREREX<span class="text-amber-500">.</span>
+            WAREFIVE<span class="text-amber-500">.</span>
         </span>
     </div>
 </template>

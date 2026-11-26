@@ -13,14 +13,14 @@ const emit = defineEmits(['toggle-menu', 'close-menu']);
 <template>
     <header class="wms-header wms-header--slide" role="banner">
         <div class="wms-header-inner">
-            <a href="/" class="wms-brand" aria-label="Warerex Military Depot Home">
+            <a href="/" class="wms-brand" aria-label="Warefive Military Depot Home">
                 <span class="wms-brand-icon" aria-hidden="true">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
                         <path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M12 8v8m-4-4h8" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </span>
-                <span class="wms-brand-name">WAREREX<span class="wms-brand-dot">.</span></span>
+                <span class="wms-brand-name">WAREFIVE<span class="wms-brand-dot">.</span></span>
                 <span class="wms-brand-tag">MILITARY DEPOT & LOGISTICS</span>
             </a>
 

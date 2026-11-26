@@ -130,7 +130,7 @@ function formatDate(isoString) {
             <div id="printable-sticker-area" class="my-5 p-5 bg-white text-slate-900 rounded-xl border-4 border-slate-900 shadow-md flex flex-col items-center">
                 <div class="w-full flex items-center justify-between pb-2 border-b-2 border-slate-900 font-bold text-xs">
                     <div class="flex items-center gap-1.5">
-                        <span class="bg-slate-900 text-white px-2 py-0.5 rounded text-[10px] font-mono">WAREREX</span>
+                        <span class="bg-slate-900 text-white px-2 py-0.5 rounded text-[10px] font-mono">WAREFIVE</span>
                         <span>KRWNG LOGISTICS FACILITY</span>
                     </div>
                     <span class="px-2 py-0.5 bg-slate-100 rounded border border-slate-300 font-mono text-xs">
