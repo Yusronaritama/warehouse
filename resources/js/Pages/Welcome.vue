@@ -50,7 +50,7 @@ onMounted(() => {
         />
 
         <!-- Main Content -->
-        <main id="main-content" class="wh-main">
+        <main id="main-content" class="wh-main welcome-page-enter">
             <!-- 3. Hero Section -->
             <section class="wh-hero" aria-labelledby="hero-heading">
                 <div class="wh-hero-content">
@@ -293,15 +293,15 @@ onMounted(() => {
         <footer class="wh-footer" role="contentinfo">
             <div class="wh-footer-inner">
                 <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <div class="flex items-center gap-3">
+                    <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 text-center sm:text-left">
                         <span class="wh-footer-logo">WAREFIVE<span class="text-[#88C0D0]">.</span></span>
                         <span class="text-xs text-[#A5B1C2]">
-                            Enterprise Warehouse Management System &bull; Fasilitas WH-KRWNG Barat
+                            &copy; {{ new Date().getFullYear() }} <strong class="text-[#ECEFF4]">Hols</strong> &times; <strong class="text-[#88C0D0]">WAREFIVE</strong>. All rights reserved.
                         </span>
                     </div>
 
                     <div class="text-xs text-[#A5B1C2]">
-                        Laravel v{{ laravelVersion }} (PHP v{{ phpVersion }})
+                        Made by <span class="text-[#ECEFF4] font-medium">Creactivities</span> &bull; Fasilitas WH-KRWNG Barat
                     </div>
                 </div>
             </div>
@@ -695,6 +695,29 @@ onMounted(() => {
     }
     .wh-footer {
         margin-bottom: 5.5rem; /* Safe breathing room for mobile floating bottom bar */
+    }
+}
+
+@keyframes welcomeEnter {
+    0% {
+        opacity: 0;
+        transform: translateY(16px) scale(0.985);
+        filter: blur(5px);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+        filter: none;
+    }
+}
+
+.welcome-page-enter {
+    animation: welcomeEnter 0.48s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .welcome-page-enter {
+        animation: none;
     }
 }
 </style>

@@ -195,7 +195,11 @@ async function submitNewItem() {
     isSubmittingNewItem.value = true;
     addItemError.value = null;
 
-    const locationName = `Zone ${activeBarcode.value.zone || 'Zone A'} (${activeBarcode.value.rack_code}) Rak 1`;
+    const rawZone = (activeBarcode.value.zone || '').trim();
+    const cleanZone = rawZone
+        ? (rawZone.toLowerCase().startsWith('zone') ? rawZone : `Zone ${rawZone}`)
+        : 'Zone A';
+    const locationName = `${cleanZone} (${activeBarcode.value.rack_code}) Rak 1`;
 
     try {
         const payload = {

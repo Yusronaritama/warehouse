@@ -372,9 +372,12 @@ function handleSubmit() {
                                 v-model="form.condition"
                                 class="w-full bg-[#2E3440] border border-[#4C566A] rounded-lg px-3 py-2.5 text-sm text-[#ECEFF4] focus:outline-none focus:border-[#88C0D0]"
                             >
+                                <option value="Good">Good (Baik)</option>
                                 <option value="Baru">Baru</option>
                                 <option value="Baik">Baik</option>
+                                <option value="Needs Maintenance">Needs Maintenance</option>
                                 <option value="Perlu Servis">Perlu Servis</option>
+                                <option value="Damaged">Damaged (Rusak)</option>
                             </select>
                         </div>
                     </div>

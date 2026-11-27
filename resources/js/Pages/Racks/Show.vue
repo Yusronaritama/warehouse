@@ -200,7 +200,11 @@ async function submitAddItem() {
     isSubmittingAdd.value = true;
     addError.value = null;
 
-    const fullLocation = `Zone ${props.rack.zone || 'Zone A'} (${props.rack.rack_code}) ${newItem.value.shelf_detail || 'Rak 1'}`;
+    const rawZone = (props.rack.zone || '').trim();
+    const cleanZone = rawZone
+        ? (rawZone.toLowerCase().startsWith('zone') ? rawZone : `Zone ${rawZone}`)
+        : 'Zone A';
+    const fullLocation = `${cleanZone} (${props.rack.rack_code}) ${newItem.value.shelf_detail || 'Rak 1'}`;
 
     const payload = {
         code: newItem.value.code.trim().toUpperCase(),
