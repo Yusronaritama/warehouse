@@ -34,7 +34,7 @@ function handleSkip() {
         </div>
         <div class="cine-letterbox cine-letterbox-bottom">
             <div class="cine-bar-content font-mono">
-                <span>WAREREX ARSENAL DEPOT COMMAND SYSTEM</span>
+                <span>WAREFIVE ARSENAL DEPOT COMMAND SYSTEM</span>
                 <span>FPS: 60.0 // RAW DATA LINK</span>
                 <span>STATUS: STANDBY</span>
             </div>
@@ -87,7 +87,7 @@ function handleSkip() {
             </div>
 
             <h2 class="intro-title font-mono tracking-widest">
-                WAREREX ARSENAL
+                WAREFIVE ARSENAL
             </h2>
 
             <div class="intro-facility font-mono text-neutral-400">

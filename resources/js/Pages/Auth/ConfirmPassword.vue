@@ -19,35 +19,38 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Confirm Password" />
+        <Head title="Konfirmasi Password Keamanan" />
 
-        <div class="mb-4 text-sm text-gray-600">
-            This is a secure area of the application. Please confirm your
-            password before continuing.
+        <div class="mb-5">
+            <h2 class="text-lg font-bold text-[#ECEFF4] tracking-tight">Konfirmasi Akses Aman</h2>
+            <p class="text-xs text-[#A5B1C2] mt-1 leading-relaxed">
+                Ini adalah area sensitif sistem pergudangan. Silakan konfirmasi kata sandi Anda sebelum melanjutkan.
+            </p>
         </div>
 
-        <form @submit.prevent="submit">
+        <form @submit.prevent="submit" class="space-y-4">
             <div>
-                <InputLabel for="password" value="Password" />
+                <InputLabel for="password" value="Kata Sandi" class="!text-[#D8DEE9] !font-semibold text-xs" />
                 <TextInput
                     id="password"
                     type="password"
-                    class="mt-1 block w-full"
+                    class="mt-1.5 block w-full !bg-[#2E3440] !border-[#4C566A] !text-[#ECEFF4] placeholder-[#8C96A9] focus:!border-[#88C0D0] focus:!ring-[#88C0D0]"
                     v-model="form.password"
                     required
                     autocomplete="current-password"
                     autofocus
+                    placeholder="Masukkan password Anda"
                 />
-                <InputError class="mt-2" :message="form.errors.password" />
+                <InputError class="mt-1.5" :message="form.errors.password" />
             </div>
 
-            <div class="mt-4 flex justify-end">
+            <div class="pt-2 flex justify-end">
                 <PrimaryButton
-                    class="ms-4"
+                    class="!bg-[#5E81AC] hover:!bg-[#81A1C1] !text-[#ECEFF4] !font-bold !py-2 !px-5 !rounded-lg !border-0 shadow-lg shadow-[#5E81AC]/25"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
-                    Confirm
+                    Konfirmasi Password
                 </PrimaryButton>
             </div>
         </form>

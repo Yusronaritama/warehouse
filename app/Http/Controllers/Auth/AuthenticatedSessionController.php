@@ -42,7 +42,8 @@ class AuthenticatedSessionController extends Controller
             'blue'
         );
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->intended(route('dashboard', absolute: false))
+            ->with('login_opening', true);
     }
 
     /**

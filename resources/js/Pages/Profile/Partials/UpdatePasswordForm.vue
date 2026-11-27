@@ -1,8 +1,5 @@
 <script setup>
 import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
 import { useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
@@ -22,11 +19,11 @@ const updatePassword = () => {
         onError: () => {
             if (form.errors.password) {
                 form.reset('password', 'password_confirmation');
-                passwordInput.value.focus();
+                passwordInput.value?.focus();
             }
             if (form.errors.current_password) {
                 form.reset('current_password');
-                currentPasswordInput.value.focus();
+                currentPasswordInput.value?.focus();
             }
         },
     });
@@ -35,27 +32,28 @@ const updatePassword = () => {
 
 <template>
     <section>
-        <header>
-            <h2 class="text-lg font-medium text-gray-900">
-                Update Password
+        <header class="pb-4 border-b border-[#4C566A]/60">
+            <h2 class="text-base sm:text-lg font-bold text-[#ECEFF4]">
+                Ubah Kata Sandi
             </h2>
 
-            <p class="mt-1 text-sm text-gray-600">
-                Ensure your account is using a long, random password to stay
-                secure.
+            <p class="mt-1 text-xs sm:text-sm text-[#A5B1C2]">
+                Gunakan kata sandi yang panjang dan acak untuk menjaga keamanan akun Anda.
             </p>
         </header>
 
-        <form @submit.prevent="updatePassword" class="mt-6 space-y-6">
+        <form @submit.prevent="updatePassword" class="mt-6 space-y-5">
             <div>
-                <InputLabel for="current_password" value="Current Password" />
+                <label for="current_password" class="block text-xs font-semibold text-[#D8DEE9] mb-1.5">
+                    Kata Sandi Saat Ini
+                </label>
 
-                <TextInput
+                <input
                     id="current_password"
                     ref="currentPasswordInput"
                     v-model="form.current_password"
                     type="password"
-                    class="mt-1 block w-full"
+                    class="w-full bg-[#2E3440] border border-[#4C566A] rounded-lg px-3.5 py-2.5 text-sm text-[#ECEFF4] focus:outline-none focus:border-[#88C0D0] transition-colors"
                     autocomplete="current-password"
                 />
 
@@ -66,14 +64,16 @@ const updatePassword = () => {
             </div>
 
             <div>
-                <InputLabel for="password" value="New Password" />
+                <label for="password" class="block text-xs font-semibold text-[#D8DEE9] mb-1.5">
+                    Kata Sandi Baru
+                </label>
 
-                <TextInput
+                <input
                     id="password"
                     ref="passwordInput"
                     v-model="form.password"
                     type="password"
-                    class="mt-1 block w-full"
+                    class="w-full bg-[#2E3440] border border-[#4C566A] rounded-lg px-3.5 py-2.5 text-sm text-[#ECEFF4] focus:outline-none focus:border-[#88C0D0] transition-colors"
                     autocomplete="new-password"
                 />
 
@@ -81,16 +81,15 @@ const updatePassword = () => {
             </div>
 
             <div>
-                <InputLabel
-                    for="password_confirmation"
-                    value="Confirm Password"
-                />
+                <label for="password_confirmation" class="block text-xs font-semibold text-[#D8DEE9] mb-1.5">
+                    Konfirmasi Kata Sandi Baru
+                </label>
 
-                <TextInput
+                <input
                     id="password_confirmation"
                     v-model="form.password_confirmation"
                     type="password"
-                    class="mt-1 block w-full"
+                    class="w-full bg-[#2E3440] border border-[#4C566A] rounded-lg px-3.5 py-2.5 text-sm text-[#ECEFF4] focus:outline-none focus:border-[#88C0D0] transition-colors"
                     autocomplete="new-password"
                 />
 
@@ -100,8 +99,14 @@ const updatePassword = () => {
                 />
             </div>
 
-            <div class="flex items-center gap-4">
-                <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
+            <div class="flex items-center gap-4 pt-2">
+                <button
+                    type="submit"
+                    :disabled="form.processing"
+                    class="px-5 py-2.5 rounded-lg bg-[#5E81AC] hover:bg-[#81A1C1] text-[#ECEFF4] font-semibold text-sm shadow-xs active:scale-95 transition-all disabled:opacity-50"
+                >
+                    {{ form.processing ? 'Menyimpan...' : 'Perbarui Kata Sandi' }}
+                </button>
 
                 <Transition
                     enter-active-class="transition ease-in-out"
@@ -111,9 +116,9 @@ const updatePassword = () => {
                 >
                     <p
                         v-if="form.recentlySuccessful"
-                        class="text-sm text-gray-600"
+                        class="text-xs sm:text-sm text-[#A3BE8C] font-medium"
                     >
-                        Saved.
+                        Kata sandi diperbarui.
                     </p>
                 </Transition>
             </div>

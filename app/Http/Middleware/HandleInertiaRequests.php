@@ -58,6 +58,9 @@ class HandleInertiaRequests extends Middleware
                 'status' => 'Online',
                 'actualRackCapacity' => $actualRackCapacity,
             ],
+            'flash' => [
+                'login_opening' => fn () => $request->session()->get('login_opening', false),
+            ],
         ];
     }
 }

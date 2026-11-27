@@ -1,8 +1,5 @@
 <script setup>
 import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
 
 defineProps({
@@ -24,27 +21,29 @@ const form = useForm({
 
 <template>
     <section>
-        <header>
-            <h2 class="text-lg font-medium text-gray-900">
-                Profile Information
+        <header class="pb-4 border-b border-[#4C566A]/60">
+            <h2 class="text-base sm:text-lg font-bold text-[#ECEFF4]">
+                Informasi Profil
             </h2>
 
-            <p class="mt-1 text-sm text-gray-600">
-                Update your account's profile information and email address.
+            <p class="mt-1 text-xs sm:text-sm text-[#A5B1C2]">
+                Perbarui nama operator dan alamat email akun Anda.
             </p>
         </header>
 
         <form
             @submit.prevent="form.patch(route('profile.update'))"
-            class="mt-6 space-y-6"
+            class="mt-6 space-y-5"
         >
             <div>
-                <InputLabel for="name" value="Name" />
+                <label for="name" class="block text-xs font-semibold text-[#D8DEE9] mb-1.5">
+                    Nama Lengkap
+                </label>
 
-                <TextInput
+                <input
                     id="name"
                     type="text"
-                    class="mt-1 block w-full"
+                    class="w-full bg-[#2E3440] border border-[#4C566A] rounded-lg px-3.5 py-2.5 text-sm text-[#ECEFF4] focus:outline-none focus:border-[#88C0D0] transition-colors"
                     v-model="form.name"
                     required
                     autofocus
@@ -55,12 +54,14 @@ const form = useForm({
             </div>
 
             <div>
-                <InputLabel for="email" value="Email" />
+                <label for="email" class="block text-xs font-semibold text-[#D8DEE9] mb-1.5">
+                    Alamat Email
+                </label>
 
-                <TextInput
+                <input
                     id="email"
                     type="email"
-                    class="mt-1 block w-full"
+                    class="w-full bg-[#2E3440] border border-[#4C566A] rounded-lg px-3.5 py-2.5 text-sm text-[#ECEFF4] focus:outline-none focus:border-[#88C0D0] transition-colors"
                     v-model="form.email"
                     required
                     autocomplete="username"
@@ -69,29 +70,35 @@ const form = useForm({
                 <InputError class="mt-2" :message="form.errors.email" />
             </div>
 
-            <div v-if="mustVerifyEmail && user.email_verified_at === null">
-                <p class="mt-2 text-sm text-gray-800">
-                    Your email address is unverified.
+            <div v-if="mustVerifyEmail && user.email_verified_at === null" class="p-3 rounded-lg bg-[#EBCB8B]/10 border border-[#EBCB8B]/30">
+                <p class="text-xs sm:text-sm text-[#EBCB8B]">
+                    Alamat email Anda belum terverifikasi.
                     <Link
                         :href="route('verification.send')"
                         method="post"
                         as="button"
-                        class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        class="underline font-semibold text-[#ECEFF4] hover:text-[#88C0D0] ml-1"
                     >
-                        Click here to re-send the verification email.
+                        Klik di sini untuk mengirim ulang email verifikasi.
                     </Link>
                 </p>
 
                 <div
                     v-show="status === 'verification-link-sent'"
-                    class="mt-2 text-sm font-medium text-green-600"
+                    class="mt-2 text-xs font-medium text-[#A3BE8C]"
                 >
-                    A new verification link has been sent to your email address.
+                    Tautan verifikasi baru telah dikirim ke alamat email Anda.
                 </div>
             </div>
 
-            <div class="flex items-center gap-4">
-                <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
+            <div class="flex items-center gap-4 pt-2">
+                <button
+                    type="submit"
+                    :disabled="form.processing"
+                    class="px-5 py-2.5 rounded-lg bg-[#5E81AC] hover:bg-[#81A1C1] text-[#ECEFF4] font-semibold text-sm shadow-xs active:scale-95 transition-all disabled:opacity-50"
+                >
+                    {{ form.processing ? 'Menyimpan...' : 'Simpan Perubahan' }}
+                </button>
 
                 <Transition
                     enter-active-class="transition ease-in-out"
@@ -101,9 +108,9 @@ const form = useForm({
                 >
                     <p
                         v-if="form.recentlySuccessful"
-                        class="text-sm text-gray-600"
+                        class="text-xs sm:text-sm text-[#A3BE8C] font-medium"
                     >
-                        Saved.
+                        Tersimpan.
                     </p>
                 </Transition>
             </div>
