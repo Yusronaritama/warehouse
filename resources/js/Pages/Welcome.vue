@@ -322,12 +322,6 @@ onMounted(() => {
     --wh-accent-frost: #88C0D0;
 }
 
-*, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
 .wh-root {
     position: relative;
     min-height: 100vh;
@@ -515,6 +509,7 @@ onMounted(() => {
 
 /* Workflow Section */
 .wh-workflow-section {
+    width: 100%;
     padding: 5.5rem 1.5rem;
     background: #2E3440;
     border-top: 1px solid rgba(76, 86, 106, 0.6);
@@ -522,6 +517,7 @@ onMounted(() => {
 }
 
 .wh-workflow-container {
+    width: 100%;
     max-width: 1240px;
     margin: 0 auto;
 }
@@ -556,6 +552,7 @@ onMounted(() => {
 }
 
 .wh-step-card {
+    min-width: 0;
     background: #3B4252;
     border: 1px solid rgba(76, 86, 106, 0.6);
     border-radius: 16px;
@@ -665,6 +662,8 @@ onMounted(() => {
 
 /* Footer */
 .wh-footer {
+    position: relative;
+    z-index: 10;
     border-top: 1px solid #3B4252;
     background: #242933;
     padding: 2.25rem 1.5rem;
