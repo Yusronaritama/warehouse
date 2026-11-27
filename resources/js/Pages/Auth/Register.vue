@@ -24,19 +24,19 @@ const submit = () => {
         <Head title="Registrasi Petugas Gudang" />
 
         <div class="mb-5">
-            <h2 class="text-lg font-bold text-white tracking-tight">Daftar Akun Operator</h2>
-            <p class="text-xs text-slate-400 mt-1">Buat akun untuk mengakses kontrol inventaris dan aset.</p>
+            <h2 class="text-lg font-bold text-[#ECEFF4] tracking-tight">Daftar Akun Operator</h2>
+            <p class="text-xs text-[#A5B1C2] mt-1">Buat akun untuk mengakses kontrol inventaris dan aset.</p>
         </div>
 
         <form @submit.prevent="submit" class="space-y-4">
             <!-- Username -->
             <div>
-                <InputLabel for="name" value="Username Petugas" class="!text-slate-300 !font-semibold text-xs" />
+                <InputLabel for="name" value="Username Petugas" class="!text-[#D8DEE9] !font-semibold text-xs" />
 
                 <TextInput
                     id="name"
                     type="text"
-                    class="mt-1.5 block w-full !bg-slate-950 !border-slate-700 !text-white focus:!border-amber-500 focus:!ring-amber-500"
+                    class="mt-1.5 block w-full !bg-[#2E3440] !border-[#4C566A] !text-[#ECEFF4] placeholder-[#8C96A9] focus:!border-[#88C0D0] focus:!ring-[#88C0D0]"
                     v-model="form.name"
                     required
                     autofocus
@@ -49,12 +49,12 @@ const submit = () => {
 
             <!-- Password -->
             <div>
-                <InputLabel for="password" value="Password" class="!text-slate-300 !font-semibold text-xs" />
+                <InputLabel for="password" value="Password" class="!text-[#D8DEE9] !font-semibold text-xs" />
 
                 <TextInput
                     id="password"
                     type="password"
-                    class="mt-1.5 block w-full !bg-slate-950 !border-slate-700 !text-white focus:!border-amber-500 focus:!ring-amber-500"
+                    class="mt-1.5 block w-full !bg-[#2E3440] !border-[#4C566A] !text-[#ECEFF4] placeholder-[#8C96A9] focus:!border-[#88C0D0] focus:!ring-[#88C0D0]"
                     v-model="form.password"
                     required
                     autocomplete="new-password"
@@ -69,13 +69,13 @@ const submit = () => {
                 <InputLabel
                     for="password_confirmation"
                     value="Konfirmasi Password"
-                    class="!text-slate-300 !font-semibold text-xs"
+                    class="!text-[#D8DEE9] !font-semibold text-xs"
                 />
 
                 <TextInput
                     id="password_confirmation"
                     type="password"
-                    class="mt-1.5 block w-full !bg-slate-950 !border-slate-700 !text-white focus:!border-amber-500 focus:!ring-amber-500"
+                    class="mt-1.5 block w-full !bg-[#2E3440] !border-[#4C566A] !text-[#ECEFF4] placeholder-[#8C96A9] focus:!border-[#88C0D0] focus:!ring-[#88C0D0]"
                     v-model="form.password_confirmation"
                     required
                     autocomplete="new-password"
@@ -92,13 +92,13 @@ const submit = () => {
             <div class="pt-2 flex items-center justify-between">
                 <Link
                     :href="route('login')"
-                    class="text-xs text-slate-400 hover:text-amber-400 transition-colors"
+                    class="text-xs text-[#A5B1C2] hover:text-[#88C0D0] transition-colors"
                 >
                     Sudah punya akun? Masuk
                 </Link>
 
                 <PrimaryButton
-                    class="!bg-amber-500 hover:!bg-amber-400 !text-slate-950 !font-bold !py-2 !px-5 !rounded-lg !border-0 shadow-lg shadow-amber-500/20"
+                    class="!bg-[#5E81AC] hover:!bg-[#81A1C1] !text-[#ECEFF4] !font-bold !py-2 !px-5 !rounded-lg !border-0 shadow-lg shadow-[#5E81AC]/25"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >

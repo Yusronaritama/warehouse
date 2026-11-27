@@ -222,21 +222,21 @@ function openItemsModal(barcode) {
         <template #header>
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2.5">
-                        <span class="p-2 bg-amber-500/10 border border-amber-500/30 rounded-lg text-amber-400">
+                    <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-[#ECEFF4] flex items-center gap-2.5">
+                        <span class="p-2 bg-[#434C5E] border border-[#4C566A] rounded-lg text-[#88C0D0]">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
                             </svg>
                         </span>
                         Manajemen & Generator Barcode Rak Gudang
                     </h1>
-                    <p class="text-xs sm:text-sm text-slate-400 mt-1">
+                    <p class="text-xs sm:text-sm text-[#A5B1C2] mt-1">
                         Generate barcode fisik dan QR code terhubung lokasi rak, pantau barcode aktif, cetak stiker rak, serta audit pemindaian.
                     </p>
                 </div>
                 <div class="flex items-center gap-2">
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-semibold bg-emerald-500/10 border border-emerald-500/25 text-emerald-400">
-                        <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-semibold bg-[#A3BE8C]/15 border border-[#A3BE8C]/30 text-[#A3BE8C]">
+                        <span class="h-2 w-2 rounded-full bg-[#A3BE8C] animate-pulse"></span>
                         Modul Barcode: Aktif & Siap Cetak
                     </span>
                 </div>

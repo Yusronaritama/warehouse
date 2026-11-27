@@ -11,11 +11,11 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue', 'save']);
 
 const DEFAULT_CATEGORIES = [
-    'Heavy Equipment',
-    'Material Handlers',
-    'Safety Gear',
-    'Electronics',
-    'Spare Parts',
+    'Bahan Baku',
+    'Painting',
+    'Masking',
+    'Buffing',
+    'Packaging',
 ];
 
 const STORAGE_KEY = 'warehouse_custom_categories';
@@ -141,7 +141,7 @@ function updateLocationFromSelect() {
 const form = ref({
     code: '',
     name: '',
-    category: 'Heavy Equipment',
+    category: 'Bahan Baku',
     location: 'Zone A (A-01) Rak 1',
     stock: 1,
     unit: 'Pcs',
@@ -228,7 +228,7 @@ function toggleCustomCategory() {
         customCategoryInput.value = '';
         form.value.category = '';
     } else {
-        form.value.category = allCategories.value[0] || 'Heavy Equipment';
+        form.value.category = allCategories.value[0] || 'Bahan Baku';
     }
 }
 
@@ -307,7 +307,7 @@ function submit() {
     form.value = {
         code: '',
         name: '',
-        category: finalCategory || 'Heavy Equipment',
+        category: finalCategory || 'Bahan Baku',
         location: finalLocation || 'Zone A (A-01) Rak 1',
         stock: 1,
         unit: 'Pcs',
@@ -328,7 +328,7 @@ function submit() {
 </script>
 
 <template>
-    <div v-if="modelValue" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm">
+    <div v-if="modelValue" class="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm">
         <div class="bg-slate-900 border border-slate-800 rounded-xl max-w-lg w-full p-6 shadow-2xl">
             <div class="flex items-center justify-between pb-3 border-b border-slate-800">
                 <h3 class="text-lg font-bold text-white flex items-center gap-2">
@@ -399,7 +399,7 @@ function submit() {
                                 />
                                 <button
                                     type="button"
-                                    @click="isCustomCategory = false; form.category = allCategories[0] || 'Heavy Equipment'"
+                                    @click="isCustomCategory = false; form.category = allCategories[0] || 'Bahan Baku'"
                                     class="absolute right-2 top-1/2 -translate-y-1/2 px-1.5 py-0.5 rounded text-[10px] bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700"
                                 >
                                     Batal
@@ -551,15 +551,22 @@ function submit() {
 
                         <div>
                             <label class="block text-xs font-semibold text-slate-300 mb-1">
-                                Satuan Dasar (Eceran)
+                                Satuan Dasar (Eceran) <span class="text-rose-400">*</span>
                             </label>
-                            <input
+                            <select
                                 v-model="form.base_unit"
-                                type="text"
-                                placeholder="cth: Pcs, KG, Liter"
-                                required
                                 class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:border-amber-500 font-medium"
-                            />
+                                required
+                            >
+                                <option value="Pcs">Pcs</option>
+                                <option value="Liter">Liter</option>
+                                <option value="Roll">Roll</option>
+                                <option value="Botol">Botol</option>
+                                <option value="Box">Box</option>
+                                <option value="Unit">Unit</option>
+                                <option value="Kg">Kg</option>
+                                <option value="Meter">Meter</option>
+                            </select>
                         </div>
 
                         <div>
@@ -593,12 +600,18 @@ function submit() {
                                     <label class="block text-[11px] text-slate-400 mb-1">
                                         Nama Satuan Kemasan:
                                     </label>
-                                    <input
+                                    <select
                                         v-model="form.packaging_unit"
-                                        type="text"
-                                        placeholder="cth: Box, Dus, Sak, Roll"
-                                        class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white focus:border-amber-500"
-                                    />
+                                        class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white focus:border-amber-500 font-medium"
+                                    >
+                                        <option value="Box">Box</option>
+                                        <option value="Karton">Karton</option>
+                                        <option value="Pail">Pail</option>
+                                        <option value="Pack">Pack</option>
+                                        <option value="Ikat">Ikat</option>
+                                        <option value="Jerigen">Jerigen</option>
+                                        <option value="Dus">Dus</option>
+                                    </select>
                                 </div>
 
                                 <div>

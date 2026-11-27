@@ -154,7 +154,7 @@ onUnmounted(() => {
 <template>
     <div
         v-if="modelValue"
-        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
+        class="fixed inset-0 z-[75] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
     >
         <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-5 shadow-2xl space-y-4 text-slate-100 relative">
             <!-- Header -->

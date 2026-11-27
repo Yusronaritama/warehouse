@@ -93,39 +93,40 @@ function submit() {
 </script>
 
 <template>
-    <div v-if="modelValue && item" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm">
-        <div class="bg-slate-900 border border-slate-800 rounded-xl max-w-md w-full p-6 shadow-2xl">
-            <div class="flex items-center justify-between pb-3 border-b border-slate-800">
-                <h3 class="text-lg font-bold text-white flex items-center gap-2">
+    <div v-if="modelValue && item" class="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-[#242933]/75 backdrop-blur-xs">
+        <!-- Nordic Dim Modal: bg-[#3B4252] border border-[#4C566A]/60 -->
+        <div class="bg-[#3B4252] border border-[#4C566A]/60 rounded-xl max-w-md w-full p-6 shadow-2xl text-[#ECEFF4]">
+            <div class="flex items-center justify-between pb-3 border-b border-[#4C566A]/60">
+                <h3 class="text-lg font-bold text-[#ECEFF4] flex items-center gap-2">
                     <span
                         class="px-2 py-0.5 rounded text-xs font-mono font-bold"
-                        :class="actionType === 'in' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-amber-500/20 text-amber-400'"
+                        :class="actionType === 'in' ? 'bg-[#A3BE8C]/20 text-[#A3BE8C] border border-[#A3BE8C]/40' : 'bg-[#EBCB8B]/20 text-[#EBCB8B] border border-[#EBCB8B]/40'"
                     >
                         {{ actionType === 'in' ? 'INBOUND' : 'OUTBOUND' }}
                     </span>
-                    Catat Mutasi Stok
+                    <span>Catat Mutasi Stok</span>
                 </h3>
-                <button @click="close" class="text-slate-400 hover:text-white text-xl">&times;</button>
+                <button @click="close" class="text-[#A5B1C2] hover:text-[#ECEFF4] text-xl font-bold">&times;</button>
             </div>
 
             <div class="mt-4 space-y-3">
                 <!-- Info Barang & Stok Bertingkat -->
-                <div class="p-3.5 rounded-lg bg-slate-950 border border-slate-800 text-xs space-y-1.5">
-                    <div class="font-bold text-white text-sm">{{ item.name }}</div>
-                    <div class="text-slate-400 flex items-center justify-between">
-                        <span>SKU: <strong class="font-mono text-amber-400">{{ item.code }}</strong></span>
-                        <span class="font-mono text-slate-300 bg-slate-900 px-1.5 py-0.5 rounded border border-slate-800">
+                <div class="p-3.5 rounded-lg bg-[#2E3440] border border-[#4C566A]/60 text-xs space-y-1.5">
+                    <div class="font-bold text-[#ECEFF4] text-sm">{{ item.name }}</div>
+                    <div class="text-[#A5B1C2] flex items-center justify-between">
+                        <span>SKU: <strong class="font-mono text-[#88C0D0]">{{ item.code }}</strong></span>
+                        <span class="font-mono text-[#D8DEE9] bg-[#3B4252] px-1.5 py-0.5 rounded border border-[#4C566A]/60">
                             {{ item.location }}
                         </span>
                     </div>
 
-                    <div class="pt-1 border-t border-slate-900 flex items-center justify-between">
-                        <span class="text-slate-400">Stok Saat Ini:</span>
+                    <div class="pt-1 border-t border-[#4C566A]/40 flex items-center justify-between">
+                        <span class="text-[#A5B1C2]">Stok Saat Ini:</span>
                         <div class="text-right">
-                            <span class="font-bold font-mono text-emerald-400 text-sm">
+                            <span class="font-bold font-mono text-[#A3BE8C] text-sm">
                                 {{ item.formatted_stock || (item.stock + ' ' + (item.base_unit || item.unit)) }}
                             </span>
-                            <div v-if="hasPackaging" class="text-[10px] text-slate-500 font-mono">
+                            <div v-if="hasPackaging" class="text-[10px] text-[#A5B1C2] font-mono">
                                 Total: {{ item.stock }} {{ baseUnit }} &bull; 1 {{ packagingUnit }} = {{ factor }} {{ baseUnit }}
                             </div>
                         </div>
@@ -133,10 +134,10 @@ function submit() {
                 </div>
 
                 <!-- Pilihan Satuan Mutasi (Multi-UoM) -->
-                <div v-if="hasPackaging" class="p-2.5 bg-slate-950/80 border border-slate-800 rounded-lg">
-                    <label class="block text-xs font-semibold text-slate-300 mb-1.5 flex items-center justify-between">
+                <div v-if="hasPackaging" class="p-2.5 bg-[#2E3440] border border-[#4C566A]/60 rounded-lg">
+                    <label class="block text-xs font-semibold text-[#D8DEE9] mb-1.5 flex items-center justify-between">
                         <span>Pilih Satuan Mutasi:</span>
-                        <span class="text-[10px] text-amber-400 font-normal">Fleksibel Bertingkat</span>
+                        <span class="text-[10px] text-[#88C0D0] font-normal">Fleksibel Bertingkat</span>
                     </label>
                     <div class="grid grid-cols-2 gap-2">
                         <button
@@ -145,12 +146,12 @@ function submit() {
                             :class="[
                                 'px-2.5 py-2 rounded-lg text-xs font-semibold border transition-all text-left flex flex-col',
                                 selectedUnit === packagingUnit
-                                    ? 'bg-amber-500/15 border-amber-500 text-amber-300 ring-1 ring-amber-500/50'
-                                    : 'bg-slate-900 border-slate-700 text-slate-300 hover:border-slate-600'
+                                    ? 'bg-[#5E81AC]/20 border-[#88C0D0] text-[#88C0D0] ring-1 ring-[#88C0D0]/40'
+                                    : 'bg-[#3B4252] border-[#4C566A]/60 text-[#D8DEE9] hover:border-[#88C0D0]/50'
                             ]"
                         >
-                            <span class="font-bold text-white">{{ packagingUnit }} (Kemasan)</span>
-                            <span class="text-[10px] text-slate-400 mt-0.5">Isi @ {{ factor }} {{ baseUnit }}</span>
+                            <span class="font-bold text-[#ECEFF4]">{{ packagingUnit }} (Kemasan)</span>
+                            <span class="text-[10px] text-[#A5B1C2] mt-0.5">Isi @ {{ factor }} {{ baseUnit }}</span>
                         </button>
 
                         <button
@@ -159,44 +160,44 @@ function submit() {
                             :class="[
                                 'px-2.5 py-2 rounded-lg text-xs font-semibold border transition-all text-left flex flex-col',
                                 selectedUnit === baseUnit
-                                    ? 'bg-amber-500/15 border-amber-500 text-amber-300 ring-1 ring-amber-500/50'
-                                    : 'bg-slate-900 border-slate-700 text-slate-300 hover:border-slate-600'
+                                    ? 'bg-[#5E81AC]/20 border-[#88C0D0] text-[#88C0D0] ring-1 ring-[#88C0D0]/40'
+                                    : 'bg-[#3B4252] border-[#4C566A]/60 text-[#D8DEE9] hover:border-[#88C0D0]/50'
                             ]"
                         >
-                            <span class="font-bold text-white">{{ baseUnit }} (Eceran)</span>
-                            <span class="text-[10px] text-slate-400 mt-0.5">Satuan dasar terkecil</span>
+                            <span class="font-bold text-[#ECEFF4]">{{ baseUnit }} (Eceran)</span>
+                            <span class="text-[10px] text-[#A5B1C2] mt-0.5">Satuan dasar terkecil</span>
                         </button>
                     </div>
                 </div>
 
                 <!-- Input Jumlah Mutasi -->
                 <div>
-                    <label class="block text-xs font-semibold text-slate-300 mb-1 flex items-center justify-between">
+                    <label class="block text-xs font-semibold text-[#D8DEE9] mb-1 flex items-center justify-between">
                         <span>Jumlah {{ actionType === 'in' ? 'Masuk (+)' : 'Keluar (-)' }}</span>
-                        <span class="text-xs text-amber-400 font-mono font-bold">{{ selectedUnit }}</span>
+                        <span class="text-xs text-[#88C0D0] font-mono font-bold">{{ selectedUnit }}</span>
                     </label>
                     <div class="relative">
                         <input
                             v-model="amount"
                             type="number"
                             min="1"
-                            class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:border-amber-500 font-mono font-bold"
+                            class="w-full bg-[#2E3440] border border-[#4C566A] rounded-lg px-3 py-2 text-sm text-[#ECEFF4] focus:border-[#88C0D0] focus:ring-1 focus:ring-[#88C0D0] font-mono font-bold"
                         />
-                        <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none">
+                        <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-[#A5B1C2] pointer-events-none">
                             {{ selectedUnit }}
                         </span>
                     </div>
 
                     <!-- Live Conversion Helper -->
-                    <div v-if="hasPackaging && selectedUnit === packagingUnit" class="mt-1.5 p-2 rounded bg-slate-950 border border-slate-800 text-[11px] font-mono flex items-center justify-between text-slate-300">
-                        <span class="text-slate-400">Total Kuantitas Dasar:</span>
-                        <span class="text-amber-300 font-bold">= {{ calculatedBaseAmount }} {{ baseUnit }}</span>
+                    <div v-if="hasPackaging && selectedUnit === packagingUnit" class="mt-1.5 p-2 rounded bg-[#2E3440] border border-[#4C566A]/60 text-[11px] font-mono flex items-center justify-between text-[#D8DEE9]">
+                        <span class="text-[#A5B1C2]">Total Kuantitas Dasar:</span>
+                        <span class="text-[#88C0D0] font-bold">= {{ calculatedBaseAmount }} {{ baseUnit }}</span>
                     </div>
 
                     <!-- Projected Stock Helper -->
-                    <div class="mt-1 text-[11px] font-mono text-slate-400 flex items-center justify-between">
+                    <div class="mt-1 text-[11px] font-mono text-[#A5B1C2] flex items-center justify-between">
                         <span>Proyeksi sisa stok:</span>
-                        <span :class="projectedStock < 0 ? 'text-rose-400 font-bold' : 'text-slate-300 font-semibold'">
+                        <span :class="projectedStock < 0 ? 'text-[#BF616A] font-bold' : 'text-[#D8DEE9] font-semibold'">
                             {{ formatBreakdown(projectedStock) }}
                         </span>
                     </div>
@@ -204,28 +205,28 @@ function submit() {
 
                 <!-- Keterangan / Surat Jalan -->
                 <div>
-                    <label class="block text-xs font-semibold text-slate-300 mb-1">Keterangan / Tujuan / No. Surat Jalan</label>
+                    <label class="block text-xs font-semibold text-[#D8DEE9] mb-1">Keterangan / Tujuan / No. Surat Jalan</label>
                     <input
                         v-model="notes"
                         type="text"
                         :placeholder="actionType === 'in' ? 'cth: Restock PO-4091 dari Supplier' : 'cth: Dikirim ke Bay 2 / Proyek A'"
-                        class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:border-amber-500"
+                        class="w-full bg-[#2E3440] border border-[#4C566A] rounded-lg px-3 py-2 text-sm text-[#ECEFF4] focus:border-[#88C0D0] focus:ring-1 focus:ring-[#88C0D0]"
                     />
                 </div>
 
                 <!-- Action Buttons -->
-                <div class="pt-4 flex items-center justify-end gap-2.5">
+                <div class="pt-4 flex items-center justify-end gap-2.5 border-t border-[#4C566A]/40">
                     <button
                         type="button"
                         @click="close"
-                        class="px-4 py-2 rounded-lg bg-slate-800 text-slate-300 text-sm font-semibold hover:bg-slate-700"
+                        class="px-4 py-2 rounded-lg bg-[#434C5E] text-[#ECEFF4] text-sm font-semibold hover:bg-[#4C566A] transition-colors"
                     >
                         Batal
                     </button>
                     <button
                         @click="submit"
-                        class="px-5 py-2 rounded-lg text-sm font-bold shadow-lg"
-                        :class="actionType === 'in' ? 'bg-emerald-500 hover:bg-emerald-400 text-slate-950 shadow-emerald-500/20' : 'bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-amber-500/20'"
+                        class="px-5 py-2 rounded-lg text-sm font-semibold shadow-xs transition-colors"
+                        :class="actionType === 'in' ? 'bg-[#A3BE8C] hover:bg-[#8FBCBB] text-[#2E3440] font-bold' : 'bg-[#EBCB8B] hover:bg-[#D08770] text-[#2E3440] font-bold'"
                     >
                         Konfirmasi {{ actionType === 'in' ? 'Stok Masuk' : 'Stok Keluar' }}
                     </button>

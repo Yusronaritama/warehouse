@@ -88,14 +88,11 @@ const isSubmittingNewItem = ref(false);
 const addItemError = ref(null);
 
 const DEFAULT_CATEGORIES = [
-    'Heavy Equipment',
-    'Material Handlers',
-    'Safety Gear',
-    'Electronics',
-    'Spare Parts',
-    'Perlengkapan',
-    'Konsumsi',
-    'Aset',
+    'Bahan Baku',
+    'Painting',
+    'Masking',
+    'Buffing',
+    'Packaging',
 ];
 
 const STORAGE_KEY_CATEGORIES = 'warehouse_custom_categories';
@@ -137,9 +134,9 @@ const allCategories = computed(() => {
 const newItemForm = ref({
     code: '',
     name: '',
-    category: 'Heavy Equipment',
+    category: 'Bahan Baku',
     stock: 1,
-    unit: 'Unit',
+    unit: 'Pcs',
     min_stock: 2,
     status: 'Ready',
     condition: 'Good',
@@ -452,18 +449,28 @@ async function submitMutation() {
 // Category badge color helper
 function getCategoryBadge(category) {
     switch (category) {
+        case 'Bahan Baku':
+            return 'bg-[#81A1C1]/15 text-[#81A1C1] border-[#81A1C1]/30';
+        case 'Painting':
+            return 'bg-[#B48EAD]/15 text-[#B48EAD] border-[#B48EAD]/30';
+        case 'Masking':
+            return 'bg-[#EBCB8B]/15 text-[#EBCB8B] border-[#EBCB8B]/30';
+        case 'Buffing':
+            return 'bg-[#A3BE8C]/15 text-[#A3BE8C] border-[#A3BE8C]/30';
+        case 'Packaging':
+            return 'bg-[#88C0D0]/15 text-[#88C0D0] border-[#88C0D0]/30';
         case 'Heavy Equipment':
-            return 'bg-amber-500/10 text-amber-400 border-amber-500/30';
+            return 'bg-[#EBCB8B]/15 text-[#EBCB8B] border-[#EBCB8B]/30';
         case 'Material Handlers':
-            return 'bg-blue-500/10 text-blue-400 border-blue-500/30';
+            return 'bg-[#81A1C1]/15 text-[#81A1C1] border-[#81A1C1]/30';
         case 'Safety Gear':
-            return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30';
+            return 'bg-[#A3BE8C]/15 text-[#A3BE8C] border-[#A3BE8C]/30';
         case 'Electronics':
-            return 'bg-purple-500/10 text-purple-400 border-purple-500/30';
+            return 'bg-[#B48EAD]/15 text-[#B48EAD] border-[#B48EAD]/30';
         case 'Spare Parts':
-            return 'bg-cyan-500/10 text-cyan-400 border-cyan-500/30';
+            return 'bg-[#88C0D0]/15 text-[#88C0D0] border-[#88C0D0]/30';
         default:
-            return 'bg-slate-800 text-slate-300 border-slate-700';
+            return 'bg-[#434C5E]/60 text-[#D8DEE9] border-[#4C566A]/60';
     }
 }
 
@@ -487,26 +494,26 @@ onUnmounted(() => {
 <template>
     <div
         v-if="modelValue"
-        class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/85 backdrop-blur-md"
+        class="fixed inset-0 z-[70] flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-xs"
     >
-        <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full p-5 sm:p-6 shadow-2xl relative text-slate-100 flex flex-col max-h-[92vh]">
-            <!-- Modal Header -->
-            <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+        <div class="bg-[#3B4252] border border-[#4C566A]/60 rounded-2xl max-w-2xl w-full p-5 sm:p-6 shadow-2xl relative text-[#ECEFF4] flex flex-col max-h-[92vh]">
+            <!-- Modal Header (Nordic Dim) -->
+            <div class="flex items-center justify-between pb-4 border-b border-[#4C566A]/60">
                 <div class="flex items-center gap-3">
-                    <div class="p-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 relative">
+                    <div class="p-2.5 rounded-xl bg-[#434C5E] border border-[#4C566A] text-[#88C0D0] relative">
                         <span class="absolute -top-1 -right-1 flex h-3 w-3">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#88C0D0] opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-[#88C0D0]"></span>
                         </span>
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
                         </svg>
                     </div>
                     <div>
-                        <h3 class="text-base sm:text-lg font-bold text-white tracking-wide">
+                        <h3 class="text-base sm:text-lg font-bold text-[#ECEFF4] tracking-wide">
                             Scan Barcode Rak & Mutasi Stok
                         </h3>
-                        <p class="text-xs text-slate-400 mt-0.5">
+                        <p class="text-xs text-[#A5B1C2] mt-0.5">
                             Pindai stiker rak fisik untuk melihat isi barang, menambah item, dan update stok (IN / OUT).
                         </p>
                     </div>
@@ -515,7 +522,7 @@ onUnmounted(() => {
                 <button
                     type="button"
                     @click="closeModal"
-                    class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+                    class="p-2 rounded-lg text-[#A5B1C2] hover:text-[#ECEFF4] hover:bg-[#434C5E] transition-colors"
                 >
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -524,7 +531,7 @@ onUnmounted(() => {
             </div>
 
             <!-- Scanner Input Box -->
-            <div class="mt-4 p-3.5 bg-slate-950 rounded-xl border border-slate-800">
+            <div class="mt-4 p-3.5 bg-[#2E3440] rounded-xl border border-[#4C566A]/60">
                 <form @submit.prevent="executeScan()" class="flex gap-2">
                     <div class="relative flex-1">
                         <input
@@ -532,13 +539,13 @@ onUnmounted(() => {
                             v-model="scanInput"
                             type="text"
                             placeholder="Ketik atau scan barcode (e.g. BC-A01-8942 atau RAK A-01)..."
-                            class="w-full bg-slate-900 border border-slate-700 rounded-lg pl-3 pr-8 py-2 text-xs sm:text-sm text-white font-mono uppercase focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
+                            class="w-full bg-[#3B4252] border border-[#4C566A] rounded-lg pl-3 pr-8 py-2 text-xs sm:text-sm text-[#ECEFF4] placeholder-[#8C96A9] font-mono uppercase focus:border-[#88C0D0] focus:ring-1 focus:ring-[#88C0D0]"
                         />
                         <button
                             v-if="scanInput"
                             type="button"
                             @click="scanInput = ''; scanInputRef?.focus()"
-                            class="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs"
+                            class="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#A5B1C2] hover:text-[#ECEFF4] text-xs"
                         >
                             &times;
                         </button>
@@ -547,7 +554,7 @@ onUnmounted(() => {
                     <button
                         type="button"
                         @click="showCameraScanner = true"
-                        class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-slate-700 hover:border-cyan-500/50 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm active:scale-95"
+                        class="px-3 py-2 bg-[#434C5E] hover:bg-[#4C566A] text-[#88C0D0] border border-[#4C566A] rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs active:scale-95"
                         title="Pindai menggunakan kamera HP"
                     >
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -560,7 +567,7 @@ onUnmounted(() => {
                     <button
                         type="submit"
                         :disabled="isScanning"
-                        class="px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg text-xs font-bold transition-all disabled:opacity-50 flex items-center gap-1.5 shadow-md shadow-cyan-600/20 active:scale-95"
+                        class="px-4 py-2 bg-[#5E81AC] hover:bg-[#81A1C1] text-[#ECEFF4] rounded-lg text-xs font-bold transition-all disabled:opacity-50 flex items-center gap-1.5 shadow-xs active:scale-95"
                     >
                         <svg v-if="isScanning" class="animate-spin h-3.5 w-3.5 text-white" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
@@ -574,17 +581,17 @@ onUnmounted(() => {
                 </form>
 
                 <!-- Live Quick Racks from Database -->
-                <div v-if="displayRacks && displayRacks.length > 0" class="mt-2.5 pt-2 border-t border-slate-900">
+                <div v-if="displayRacks && displayRacks.length > 0" class="mt-2.5 pt-2 border-t border-[#4C566A]/60">
                     <div class="flex items-center justify-between mb-1.5">
-                        <span class="text-[10px] text-slate-400 font-semibold flex items-center gap-1.5">
-                            <span class="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span class="text-[10px] text-[#A5B1C2] font-semibold flex items-center gap-1.5">
+                            <span class="h-1.5 w-1.5 rounded-full bg-[#A3BE8C] animate-pulse"></span>
                             Pilih cepat rak ({{ displayRacks.length }} rak terdaftar di Database):
                         </span>
                         <button
                             type="button"
                             @click="fetchLiveRacks"
                             title="Muat ulang rak terbaru dari DB"
-                            class="text-[10px] text-slate-500 hover:text-cyan-400 transition-colors flex items-center gap-1 font-mono"
+                            class="text-[10px] text-[#A5B1C2] hover:text-[#88C0D0] transition-colors flex items-center gap-1 font-mono"
                         >
                             <svg class="w-3 h-3" :class="isLoadingRacks ? 'animate-spin' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -601,10 +608,10 @@ onUnmounted(() => {
                             type="button"
                             @click="quickSelectRack(r.code || r)"
                             class="px-2 py-0.5 rounded text-[10px] font-mono transition-all flex items-center gap-1"
-                            :class="activeBarcode?.rack_code === (r.code || r) ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold' : 'bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-slate-700'"
+                            :class="activeBarcode?.rack_code === (r.code || r) ? 'bg-[#5E81AC] text-[#ECEFF4] border border-[#81A1C1] font-bold' : 'bg-[#3B4252] hover:bg-[#434C5E] text-[#D8DEE9] border border-[#4C566A]/60'"
                         >
                             <span>{{ r.code || r }}</span>
-                            <span v-if="r.items_count !== undefined" class="text-[9px] text-slate-400 font-sans">
+                            <span v-if="r.items_count !== undefined" class="text-[9px] text-[#A5B1C2] font-sans">
                                 ({{ r.items_count }})
                             </span>
                         </button>
@@ -613,60 +620,60 @@ onUnmounted(() => {
             </div>
 
             <!-- Scan Error Feedback -->
-            <div v-if="scanError" class="mt-3 p-3 bg-rose-500/10 border border-rose-500/30 rounded-xl text-xs text-rose-300 flex items-center justify-between">
+            <div v-if="scanError" class="mt-3 p-3 bg-[#BF616A]/15 border border-[#BF616A]/30 rounded-xl text-xs text-[#BF616A] flex items-center justify-between">
                 <div class="flex items-center gap-2">
-                    <svg class="w-4 h-4 text-rose-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg class="w-4 h-4 text-[#BF616A] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
                     <span>{{ scanError }}</span>
                 </div>
-                <button type="button" @click="scanError = null" class="text-slate-400 hover:text-white">&times;</button>
+                <button type="button" @click="scanError = null" class="text-[#A5B1C2] hover:text-[#ECEFF4]">&times;</button>
             </div>
 
             <!-- Mutation Alert Banner -->
             <div
                 v-if="mutationAlert"
                 class="mt-3 p-3 rounded-xl text-xs flex items-center justify-between border"
-                :class="mutationAlert.type === 'success' ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30' : 'bg-rose-500/10 text-rose-300 border-rose-500/30'"
+                :class="mutationAlert.type === 'success' ? 'bg-[#A3BE8C]/15 text-[#A3BE8C] border-[#A3BE8C]/30' : 'bg-[#BF616A]/15 text-[#BF616A] border-[#BF616A]/30'"
             >
                 <div class="flex items-center gap-2">
-                    <svg v-if="mutationAlert.type === 'success'" class="w-4 h-4 text-emerald-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg v-if="mutationAlert.type === 'success'" class="w-4 h-4 text-[#A3BE8C] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                     </svg>
-                    <svg v-else class="w-4 h-4 text-rose-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg v-else class="w-4 h-4 text-[#BF616A] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
                     <span>{{ mutationAlert.message }}</span>
                 </div>
-                <button type="button" @click="mutationAlert = null" class="text-slate-400 hover:text-white text-xs">&times;</button>
+                <button type="button" @click="mutationAlert = null" class="text-[#A5B1C2] hover:text-[#ECEFF4] text-xs">&times;</button>
             </div>
 
             <!-- Active Rack Details Strip -->
-            <div v-if="activeBarcode" class="mt-3.5 p-3.5 bg-gradient-to-r from-slate-950 to-slate-900 rounded-xl border border-amber-500/30 flex items-center justify-between">
+            <div v-if="activeBarcode" class="mt-3.5 p-3.5 bg-[#2E3440] rounded-xl border border-[#4C566A]/60 flex items-center justify-between">
                 <div>
                     <div class="flex items-center gap-2">
-                        <span class="text-base font-black text-amber-400 font-mono tracking-tight">
+                        <span class="text-base font-black text-[#88C0D0] font-mono tracking-tight">
                             RAK {{ activeBarcode.rack_code }}
                         </span>
-                        <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30">
+                        <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#3B4252] text-[#D8DEE9] border border-[#4C566A]/60">
                             {{ activeBarcode.barcode_code }}
                         </span>
                     </div>
-                    <div class="text-[11px] text-slate-400 mt-0.5">
+                    <div class="text-[11px] text-[#A5B1C2] mt-0.5">
                         {{ activeBarcode.zone || 'Zone A' }} &bull; {{ activeBarcode.label }}
                     </div>
                 </div>
 
                 <div class="flex items-center gap-2">
                     <div class="text-right mr-1 hidden sm:block">
-                        <span class="text-[10px] uppercase tracking-wider text-slate-500 font-semibold block">Total Item Rak</span>
-                        <span class="font-mono text-sm font-bold text-emerald-400">{{ rackItems.length }} SKU</span>
+                        <span class="text-[10px] uppercase tracking-wider text-[#A5B1C2] font-semibold block">Total Item Rak</span>
+                        <span class="font-mono text-sm font-bold text-[#ECEFF4]">{{ rackItems.length }} SKU</span>
                     </div>
 
                     <!-- Shortcut button: Buka Halaman Kelola Rak Penuh -->
                     <Link
                         :href="route('racks.show', activeBarcode.rack_code)"
-                        class="px-3 py-1.5 text-xs font-bold rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition-all flex items-center gap-1.5 active:scale-95 shadow-sm"
+                        class="px-3 py-1.5 text-xs font-bold rounded-lg bg-[#5E81AC] hover:bg-[#81A1C1] text-[#ECEFF4] transition-all flex items-center gap-1.5 active:scale-95 shadow-xs"
                         title="Buka halaman penuh untuk CRUD barang & ubah nama rak"
                     >
                         <span>Kelola Rak (CRUD) &rarr;</span>
@@ -676,7 +683,7 @@ onUnmounted(() => {
                     <button
                         type="button"
                         @click="openAddItemForm"
-                        class="px-2.5 py-1.5 text-xs font-semibold rounded-lg bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/30 transition-all flex items-center gap-1.5 active:scale-95 shadow-sm"
+                        class="px-2.5 py-1.5 text-xs font-semibold rounded-lg bg-[#434C5E] hover:bg-[#4C566A] text-[#ECEFF4] border border-[#4C566A] transition-all flex items-center gap-1.5 active:scale-95 shadow-xs"
                         title="Tambah barang baru langsung ke rak ini"
                     >
                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -688,19 +695,19 @@ onUnmounted(() => {
             </div>
 
             <!-- Inline Form: Tambah Barang Baru Langsung ke Rak Ini -->
-            <div v-if="activeBarcode && isAddingItem" class="mt-3 p-4 bg-slate-950 rounded-xl border border-amber-500/40 shadow-xl space-y-3">
-                <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+            <div v-if="activeBarcode && isAddingItem" class="mt-3 p-4 bg-[#2E3440] rounded-xl border border-[#88C0D0]/40 shadow-xl space-y-3">
+                <div class="flex items-center justify-between pb-2 border-b border-[#4C566A]/60">
                     <div class="flex items-center gap-2">
-                        <span class="p-1 rounded bg-amber-500/20 text-amber-400">
+                        <span class="p-1 rounded bg-[#88C0D0]/20 text-[#88C0D0]">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                             </svg>
                         </span>
                         <div>
-                            <h4 class="text-xs sm:text-sm font-bold text-white">
+                            <h4 class="text-xs sm:text-sm font-bold text-[#ECEFF4]">
                                 Tambah Barang Baru ke Rak {{ activeBarcode.rack_code }}
                             </h4>
-                            <p class="text-[10px] text-slate-400">
+                            <p class="text-[10px] text-[#A5B1C2]">
                                 Barang akan langsung didaftarkan dengan alokasi lokasi di rak ini.
                             </p>
                         </div>
@@ -708,13 +715,13 @@ onUnmounted(() => {
                     <button
                         type="button"
                         @click="closeAddItemForm"
-                        class="p-1 rounded text-slate-400 hover:text-white text-xs"
+                        class="p-1 rounded text-[#A5B1C2] hover:text-[#ECEFF4] text-xs"
                     >
                         &times;
                     </button>
                 </div>
 
-                <div v-if="addItemError" class="p-2.5 rounded bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs">
+                <div v-if="addItemError" class="p-2.5 rounded bg-[#BF616A]/15 border border-[#BF616A]/30 text-[#BF616A] text-xs">
                     {{ addItemError }}
                 </div>
 
@@ -723,13 +730,13 @@ onUnmounted(() => {
                         <!-- Kode SKU -->
                         <div>
                             <div class="flex items-center justify-between mb-1">
-                                <label class="font-semibold text-slate-300">
-                                    Kode SKU / Aset <span class="text-rose-400">*</span>
+                                <label class="font-semibold text-[#A5B1C2]">
+                                    Kode SKU / Aset <span class="text-[#BF616A]">*</span>
                                 </label>
                                 <button
                                     type="button"
                                     @click="autoGenerateSku"
-                                    class="text-[10px] text-amber-400 hover:underline font-mono"
+                                    class="text-[10px] text-[#88C0D0] hover:underline font-mono"
                                 >
                                     Auto Generate
                                 </button>
@@ -739,21 +746,21 @@ onUnmounted(() => {
                                 type="text"
                                 placeholder="cth: SKU-A01-102"
                                 required
-                                class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white font-mono uppercase focus:border-amber-500"
+                                class="w-full bg-[#3B4252] border border-[#4C566A] rounded-lg px-2.5 py-1.5 text-xs text-[#ECEFF4] font-mono uppercase focus:border-[#88C0D0]"
                             />
                         </div>
 
                         <!-- Nama Barang -->
                         <div>
-                            <label class="block font-semibold text-slate-300 mb-1">
-                                Nama Barang / Aset <span class="text-rose-400">*</span>
+                            <label class="block font-semibold text-[#A5B1C2] mb-1">
+                                Nama Barang / Aset <span class="text-[#BF616A]">*</span>
                             </label>
                             <input
                                 v-model="newItemForm.name"
                                 type="text"
                                 placeholder="cth: Forklift Hydraulic Hose"
                                 required
-                                class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white focus:border-amber-500"
+                                class="w-full bg-[#3B4252] border border-[#4C566A] rounded-lg px-2.5 py-1.5 text-xs text-[#ECEFF4] focus:border-[#88C0D0]"
                             />
                         </div>
                     </div>
@@ -762,13 +769,13 @@ onUnmounted(() => {
                         <!-- Kategori -->
                         <div>
                             <div class="flex items-center justify-between mb-1">
-                                <label class="font-semibold text-slate-300">
-                                    Kategori <span class="text-rose-400">*</span>
+                                <label class="font-semibold text-[#A5B1C2]">
+                                    Kategori <span class="text-[#BF616A]">*</span>
                                 </label>
                                 <button
                                     type="button"
                                     @click="isCustomCategory = !isCustomCategory"
-                                    class="text-[10px] text-amber-400 hover:text-amber-300 transition-colors font-medium"
+                                    class="text-[10px] text-[#88C0D0] hover:text-[#81A1C1] transition-colors font-medium"
                                 >
                                     {{ isCustomCategory ? 'Pilih List' : '+ Kategori Baru' }}
                                 </button>
@@ -779,13 +786,13 @@ onUnmounted(() => {
                                 <select
                                     :value="newItemForm.category"
                                     @change="if ($event.target.value === '__NEW__') { isCustomCategory = true; customCategoryInput = ''; } else { newItemForm.category = $event.target.value; }"
-                                    class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white focus:border-amber-500"
+                                    class="w-full bg-[#3B4252] border border-[#4C566A] rounded-lg px-2.5 py-1.5 text-xs text-[#ECEFF4] focus:border-[#88C0D0]"
                                     required
                                 >
                                     <option v-for="cat in allCategories" :key="cat" :value="cat">
                                         {{ cat }}
                                     </option>
-                                    <option value="__NEW__" class="text-amber-400 font-semibold bg-slate-950">
+                                    <option value="__NEW__" class="text-[#EBCB8B] font-semibold bg-[#2E3440]">
                                         + Ketik Kategori Kustom Baru...
                                     </option>
                                 </select>
@@ -799,12 +806,12 @@ onUnmounted(() => {
                                         type="text"
                                         placeholder="Ketik kategori baru..."
                                         required
-                                        class="w-full bg-slate-900 border border-amber-500/60 rounded-lg pl-2.5 pr-14 py-1.5 text-xs text-white focus:border-amber-400 font-medium"
+                                        class="w-full bg-[#3B4252] border border-[#88C0D0]/60 rounded-lg pl-2.5 pr-14 py-1.5 text-xs text-[#ECEFF4] focus:border-[#88C0D0] font-medium"
                                     />
                                     <button
                                         type="button"
-                                        @click="isCustomCategory = false; newItemForm.category = allCategories[0] || 'Heavy Equipment'"
-                                        class="absolute right-1.5 top-1/2 -translate-y-1/2 px-1.5 py-0.5 rounded text-[9px] bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700"
+                                        @click="isCustomCategory = false; newItemForm.category = allCategories[0] || 'Bahan Baku'"
+                                        class="absolute right-1.5 top-1/2 -translate-y-1/2 px-1.5 py-0.5 rounded text-[9px] bg-[#434C5E] hover:bg-[#4C566A] text-[#D8DEE9] border border-[#4C566A]"
                                     >
                                         Batal
                                     </button>
@@ -814,37 +821,47 @@ onUnmounted(() => {
 
                         <!-- Stok Awal -->
                         <div>
-                            <label class="block font-semibold text-slate-300 mb-1">
-                                Stok Awal <span class="text-rose-400">*</span>
+                            <label class="block font-semibold text-[#A5B1C2] mb-1">
+                                Stok Awal <span class="text-[#BF616A]">*</span>
                             </label>
                             <input
                                 v-model.number="newItemForm.stock"
                                 type="number"
                                 min="1"
                                 required
-                                class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white font-mono focus:border-amber-500"
+                                class="w-full bg-[#3B4252] border border-[#4C566A] rounded-lg px-2.5 py-1.5 text-xs text-[#ECEFF4] font-mono focus:border-[#88C0D0]"
                             />
                         </div>
 
                         <!-- Satuan -->
                         <div>
-                            <label class="block font-semibold text-slate-300 mb-1">Satuan</label>
-                            <input
+                            <label class="block font-semibold text-[#A5B1C2] mb-1">
+                                Satuan <span class="text-[#BF616A]">*</span>
+                            </label>
+                            <select
                                 v-model="newItemForm.unit"
-                                type="text"
-                                placeholder="Unit, Pcs, Box..."
-                                class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white focus:border-amber-500"
-                            />
+                                class="w-full bg-[#3B4252] border border-[#4C566A] rounded-lg px-2.5 py-1.5 text-xs text-[#ECEFF4] focus:border-[#88C0D0]"
+                                required
+                            >
+                                <option value="Pcs">Pcs</option>
+                                <option value="Liter">Liter</option>
+                                <option value="Roll">Roll</option>
+                                <option value="Botol">Botol</option>
+                                <option value="Box">Box</option>
+                                <option value="Unit">Unit</option>
+                                <option value="Kg">Kg</option>
+                                <option value="Meter">Meter</option>
+                            </select>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <!-- Kondisi -->
                         <div>
-                            <label class="block font-semibold text-slate-300 mb-1">Kondisi</label>
+                            <label class="block font-semibold text-[#A5B1C2] mb-1">Kondisi</label>
                             <select
                                 v-model="newItemForm.condition"
-                                class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white focus:border-amber-500"
+                                class="w-full bg-[#3B4252] border border-[#4C566A] rounded-lg px-2.5 py-1.5 text-xs text-[#ECEFF4] focus:border-[#88C0D0]"
                             >
                                 <option value="Good">Good (Baik)</option>
                                 <option value="Fair">Fair (Cukup)</option>
@@ -855,28 +872,28 @@ onUnmounted(() => {
 
                         <!-- Lokasi Penempatan (Read Only Chip) -->
                         <div>
-                            <label class="block font-semibold text-slate-300 mb-1">Lokasi Rak Dialokasikan</label>
-                            <div class="px-2.5 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-amber-300 font-mono text-[11px] truncate">
+                            <label class="block font-semibold text-[#A5B1C2] mb-1">Lokasi Rak Dialokasikan</label>
+                            <div class="px-2.5 py-1.5 bg-[#3B4252] border border-[#4C566A]/60 rounded-lg text-[#88C0D0] font-mono text-[11px] truncate">
                                 Rak {{ activeBarcode.rack_code }} &bull; {{ activeBarcode.zone || 'Zone A' }}
                             </div>
                         </div>
                     </div>
 
                     <!-- Actions -->
-                    <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-800">
+                    <div class="flex items-center justify-end gap-2 pt-2 border-t border-[#4C566A]/60">
                         <button
                             type="button"
                             @click="closeAddItemForm"
-                            class="px-3 py-1.5 text-xs font-semibold text-slate-400 hover:text-white rounded-lg transition-colors"
+                            class="px-3 py-1.5 text-xs font-semibold text-[#A5B1C2] hover:text-[#ECEFF4] rounded-lg transition-colors"
                         >
                             Batal
                         </button>
                         <button
                             type="submit"
                             :disabled="isSubmittingNewItem"
-                            class="px-4 py-1.5 text-xs font-bold text-slate-950 bg-amber-400 hover:bg-amber-300 rounded-lg shadow-md transition-all flex items-center gap-1.5 disabled:opacity-50 active:scale-95"
+                            class="px-4 py-1.5 text-xs font-bold text-[#ECEFF4] bg-[#5E81AC] hover:bg-[#81A1C1] rounded-lg shadow-md transition-all flex items-center gap-1.5 disabled:opacity-50 active:scale-95"
                         >
-                            <svg v-if="isSubmittingNewItem" class="animate-spin h-3.5 w-3.5 text-slate-950" viewBox="0 0 24 24">
+                            <svg v-if="isSubmittingNewItem" class="animate-spin h-3.5 w-3.5 text-white" viewBox="0 0 24 24">
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
                                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
                             </svg>
@@ -894,16 +911,16 @@ onUnmounted(() => {
                 <div
                     v-for="item in rackItems"
                     :key="item.id"
-                    class="bg-slate-950 border border-slate-800 rounded-xl p-3.5 transition-all"
-                    :class="activeMutatingItem?.id === item.id ? 'border-amber-500/60 ring-1 ring-amber-500/20' : ''"
+                    class="bg-[#2E3440] border border-[#4C566A]/60 rounded-xl p-3.5 transition-all"
+                    :class="activeMutatingItem?.id === item.id ? 'border-[#88C0D0]/60 ring-1 ring-[#88C0D0]/20' : ''"
                 >
                     <!-- Top line of Item -->
                     <div class="flex items-start justify-between gap-2">
                         <div>
-                            <h4 class="font-bold text-sm text-white">{{ item.name }}</h4>
+                            <h4 class="font-bold text-sm text-[#ECEFF4]">{{ item.name }}</h4>
                             <div class="flex items-center gap-2 mt-1">
-                                <span class="font-mono text-xs text-amber-300 font-semibold">{{ item.code }}</span>
-                                <span class="text-slate-600">&bull;</span>
+                                <span class="font-mono text-xs text-[#88C0D0] font-semibold">{{ item.code }}</span>
+                                <span class="text-[#4C566A]">&bull;</span>
                                 <span class="px-2 py-0.2 rounded text-[10px] font-medium border" :class="getCategoryBadge(item.category)">
                                     {{ item.category }}
                                 </span>
@@ -912,19 +929,19 @@ onUnmounted(() => {
 
                         <!-- Current Stock Big Badge -->
                         <div class="text-right">
-                            <div class="text-[10px] uppercase tracking-wider text-slate-500 font-semibold">Stok Saat Ini</div>
+                            <div class="text-[10px] uppercase tracking-wider text-[#A5B1C2] font-semibold">Stok Saat Ini</div>
                             <div class="font-mono mt-0.5">
-                                <span class="text-xl font-black text-white">{{ item.stock }}</span>
-                                <span class="text-xs text-slate-400 ml-1 font-semibold">{{ item.unit }}</span>
+                                <span class="text-xl font-black text-[#ECEFF4]">{{ item.stock }}</span>
+                                <span class="text-xs text-[#A5B1C2] ml-1 font-semibold">{{ item.unit }}</span>
                             </div>
                         </div>
                     </div>
 
                     <!-- Action Buttons Row (IN & OUT) -->
-                    <div class="flex items-center justify-between pt-3 mt-3 border-t border-slate-800/80">
-                        <span class="text-[11px] text-slate-400">
+                    <div class="flex items-center justify-between pt-3 mt-3 border-t border-[#4C566A]/60">
+                        <span class="text-[11px] text-[#A5B1C2]">
                             Status:
-                            <span :class="item.stock <= (item.min_stock || 5) ? 'text-amber-400 font-semibold' : 'text-emerald-400 font-semibold'">
+                            <span :class="item.stock <= (item.min_stock || 5) ? 'text-[#EBCB8B] font-semibold' : 'text-[#A3BE8C] font-semibold'">
                                 {{ item.status || 'Ready' }}
                             </span>
                         </span>
@@ -934,8 +951,8 @@ onUnmounted(() => {
                             <button
                                 type="button"
                                 @click="startMutation(item, 'in')"
-                                class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm"
-                                :class="activeMutatingItem?.id === item.id && mutationType === 'in' ? 'bg-emerald-500 text-slate-950 shadow-emerald-500/30 ring-2 ring-emerald-400' : 'bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'"
+                                class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs"
+                                :class="activeMutatingItem?.id === item.id && mutationType === 'in' ? 'bg-[#A3BE8C] text-[#2E3440] shadow-md ring-2 ring-[#A3BE8C]' : 'bg-[#A3BE8C]/15 hover:bg-[#A3BE8C]/25 text-[#A3BE8C] border border-[#A3BE8C]/30'"
                             >
                                 <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
@@ -948,8 +965,8 @@ onUnmounted(() => {
                                 type="button"
                                 :disabled="item.stock <= 0"
                                 @click="startMutation(item, 'out')"
-                                class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm disabled:opacity-40"
-                                :class="activeMutatingItem?.id === item.id && mutationType === 'out' ? 'bg-rose-500 text-white shadow-rose-500/30 ring-2 ring-rose-400' : 'bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30'"
+                                class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs disabled:opacity-40"
+                                :class="activeMutatingItem?.id === item.id && mutationType === 'out' ? 'bg-[#BF616A] text-[#ECEFF4] shadow-md ring-2 ring-[#BF616A]' : 'bg-[#BF616A]/15 hover:bg-[#BF616A]/25 text-[#BF616A] border border-[#BF616A]/30'"
                             >
                                 <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/>
@@ -962,16 +979,16 @@ onUnmounted(() => {
                     <!-- Expandable Quick Mutation Form for this item -->
                     <div
                         v-if="activeMutatingItem?.id === item.id"
-                        class="mt-3 p-3.5 bg-slate-900 rounded-xl border border-slate-700 animate-fadeIn"
+                        class="mt-3 p-3.5 bg-[#3B4252] rounded-xl border border-[#4C566A]/60 animate-fadeIn"
                     >
-                        <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+                        <div class="flex items-center justify-between pb-2 border-b border-[#4C566A]/60">
                             <span class="text-xs font-bold flex items-center gap-1.5">
-                                <span class="h-2 w-2 rounded-full" :class="mutationType === 'in' ? 'bg-emerald-400' : 'bg-rose-400'"></span>
-                                <span :class="mutationType === 'in' ? 'text-emerald-400' : 'text-rose-400'">
+                                <span class="h-2 w-2 rounded-full" :class="mutationType === 'in' ? 'bg-[#A3BE8C]' : 'bg-[#BF616A]'"></span>
+                                <span :class="mutationType === 'in' ? 'text-[#A3BE8C]' : 'text-[#BF616A]'">
                                     Mutasi {{ mutationType === 'in' ? 'TAMBAH (IN)' : 'PENGELUARAN (OUT)' }}
                                 </span>
                             </span>
-                            <span class="text-[11px] text-slate-400 font-mono">
+                            <span class="text-[11px] text-[#A5B1C2] font-mono">
                                 {{ item.code }}
                             </span>
                         </div>
@@ -979,21 +996,21 @@ onUnmounted(() => {
                         <form @submit.prevent="submitMutation" class="mt-3 space-y-3">
                             <!-- Input Jumlah / Step controls -->
                             <div>
-                                <label class="block text-[11px] font-semibold text-slate-300 mb-1">
+                                <label class="block text-[11px] font-semibold text-[#A5B1C2] mb-1">
                                     Jumlah Kuantitas ({{ item.unit }})
                                 </label>
                                 <div class="flex items-center gap-2">
                                     <button
                                         type="button"
                                         @click="adjustAmount(-10)"
-                                        class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-mono font-bold"
+                                        class="px-2.5 py-1.5 bg-[#2E3440] hover:bg-[#434C5E] text-[#D8DEE9] border border-[#4C566A]/60 rounded-lg text-xs font-mono font-bold"
                                     >
                                         -10
                                     </button>
                                     <button
                                         type="button"
                                         @click="adjustAmount(-1)"
-                                        class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-mono font-bold"
+                                        class="px-2.5 py-1.5 bg-[#2E3440] hover:bg-[#434C5E] text-[#D8DEE9] border border-[#4C566A]/60 rounded-lg text-xs font-mono font-bold"
                                     >
                                         -1
                                     </button>
@@ -1003,19 +1020,19 @@ onUnmounted(() => {
                                         min="1"
                                         :max="mutationType === 'out' ? item.stock : undefined"
                                         required
-                                        class="w-24 text-center bg-slate-950 border border-slate-700 rounded-lg py-1.5 text-sm font-bold font-mono text-white focus:border-amber-500 focus:ring-1 focus:ring-amber-500"
+                                        class="w-24 text-center bg-[#2E3440] border border-[#4C566A] rounded-lg py-1.5 text-sm font-bold font-mono text-[#ECEFF4] focus:border-[#88C0D0] focus:ring-1 focus:ring-[#88C0D0]"
                                     />
                                     <button
                                         type="button"
                                         @click="adjustAmount(1)"
-                                        class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-mono font-bold"
+                                        class="px-2.5 py-1.5 bg-[#2E3440] hover:bg-[#434C5E] text-[#D8DEE9] border border-[#4C566A]/60 rounded-lg text-xs font-mono font-bold"
                                     >
                                         +1
                                     </button>
                                     <button
                                         type="button"
                                         @click="adjustAmount(10)"
-                                        class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-mono font-bold"
+                                        class="px-2.5 py-1.5 bg-[#2E3440] hover:bg-[#434C5E] text-[#D8DEE9] border border-[#4C566A]/60 rounded-lg text-xs font-mono font-bold"
                                     >
                                         +10
                                     </button>
@@ -1025,51 +1042,51 @@ onUnmounted(() => {
                                         v-if="mutationType === 'out'"
                                         type="button"
                                         @click="mutationAmount = item.stock"
-                                        class="px-2 py-0.5 rounded text-[10px] font-mono bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/40"
+                                        class="px-2 py-0.5 rounded text-[10px] font-mono bg-[#BF616A]/15 hover:bg-[#BF616A]/25 text-[#BF616A] border border-[#BF616A]/30"
                                     >
                                         Keluarkan Semua ({{ item.stock }})
                                     </button>
                                 </div>
 
-                                <div v-if="mutationType === 'out'" class="text-[10px] text-slate-400 mt-1">
-                                    Maksimal pengeluaran: <strong class="text-white">{{ item.stock }} {{ item.unit }}</strong>
+                                <div v-if="mutationType === 'out'" class="text-[10px] text-[#A5B1C2] mt-1">
+                                    Maksimal pengeluaran: <strong class="text-[#ECEFF4]">{{ item.stock }} {{ item.unit }}</strong>
                                 </div>
                             </div>
 
                             <!-- Keterangan / Sumber / Tujuan -->
                             <div>
-                                <label class="block text-[11px] font-semibold text-slate-300 mb-1">
+                                <label class="block text-[11px] font-semibold text-[#A5B1C2] mb-1">
                                     Catatan / Referensi Mutasi
                                 </label>
                                 <input
                                     v-model="mutationNotes"
                                     type="text"
                                     :placeholder="mutationType === 'in' ? 'Contoh: PO Penerimaan #102, Restock Rutin' : 'Contoh: Surat Jalan #89, Pengambilan Tim Lapangan'"
-                                    class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white focus:border-amber-500 focus:ring-1 focus:ring-amber-500"
+                                    class="w-full bg-[#2E3440] border border-[#4C566A] rounded-lg px-3 py-1.5 text-xs text-[#ECEFF4] placeholder-[#8C96A9] focus:border-[#88C0D0] focus:ring-1 focus:ring-[#88C0D0]"
                                 />
 
                                 <!-- Quick Tags / Chips -->
                                 <div class="flex flex-wrap items-center gap-1.5 mt-2">
-                                    <span class="text-[10px] text-slate-400">Pilihan cepat:</span>
+                                    <span class="text-[10px] text-[#A5B1C2]">Pilihan cepat:</span>
                                     <template v-if="mutationType === 'in'">
                                         <button
                                             type="button"
                                             @click="setQuickNote('Restock Vendor PO')"
-                                            class="px-2 py-0.5 rounded text-[10px] bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700"
+                                            class="px-2 py-0.5 rounded text-[10px] bg-[#2E3440] hover:bg-[#434C5E] text-[#D8DEE9] border border-[#4C566A]/60"
                                         >
                                             Restock Vendor
                                         </button>
                                         <button
                                             type="button"
                                             @click="setQuickNote('Penerimaan Material')"
-                                            class="px-2 py-0.5 rounded text-[10px] bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700"
+                                            class="px-2 py-0.5 rounded text-[10px] bg-[#2E3440] hover:bg-[#434C5E] text-[#D8DEE9] border border-[#4C566A]/60"
                                         >
                                             Penerimaan Material
                                         </button>
                                         <button
                                             type="button"
                                             @click="setQuickNote('Koreksi Stock Opname')"
-                                            class="px-2 py-0.5 rounded text-[10px] bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700"
+                                            class="px-2 py-0.5 rounded text-[10px] bg-[#2E3440] hover:bg-[#434C5E] text-[#D8DEE9] border border-[#4C566A]/60"
                                         >
                                             Koreksi Opname
                                         </button>
@@ -1078,21 +1095,21 @@ onUnmounted(() => {
                                         <button
                                             type="button"
                                             @click="setQuickNote('Pengambilan Operasional Lapangan')"
-                                            class="px-2 py-0.5 rounded text-[10px] bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700"
+                                            class="px-2 py-0.5 rounded text-[10px] bg-[#2E3440] hover:bg-[#434C5E] text-[#D8DEE9] border border-[#4C566A]/60"
                                         >
                                             Operasional Lapangan
                                         </button>
                                         <button
                                             type="button"
                                             @click="setQuickNote('Pemakaian Tim Maintenance')"
-                                            class="px-2 py-0.5 rounded text-[10px] bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700"
+                                            class="px-2 py-0.5 rounded text-[10px] bg-[#2E3440] hover:bg-[#434C5E] text-[#D8DEE9] border border-[#4C566A]/60"
                                         >
                                             Tim Maintenance
                                         </button>
                                         <button
                                             type="button"
                                             @click="setQuickNote('Pengeluaran Surat Jalan')"
-                                            class="px-2 py-0.5 rounded text-[10px] bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700"
+                                            class="px-2 py-0.5 rounded text-[10px] bg-[#2E3440] hover:bg-[#434C5E] text-[#D8DEE9] border border-[#4C566A]/60"
                                         >
                                             Surat Jalan
                                         </button>
@@ -1105,17 +1122,17 @@ onUnmounted(() => {
                                 <button
                                     type="button"
                                     @click="cancelMutation"
-                                    class="px-3 py-1.5 text-xs text-slate-400 hover:text-white rounded-lg"
+                                    class="px-3 py-1.5 text-xs text-[#A5B1C2] hover:text-[#ECEFF4] rounded-lg transition-colors"
                                 >
                                     Batal
                                 </button>
                                 <button
                                     type="submit"
                                     :disabled="isSubmittingMutation"
-                                    class="px-4 py-2 rounded-lg text-xs font-bold text-slate-950 transition-all flex items-center gap-1.5 shadow-md disabled:opacity-50"
-                                    :class="mutationType === 'in' ? 'bg-emerald-400 hover:bg-emerald-300 shadow-emerald-500/20' : 'bg-rose-400 hover:bg-rose-300 shadow-rose-500/20'"
+                                    class="px-4 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 shadow-md disabled:opacity-50"
+                                    :class="mutationType === 'in' ? 'bg-[#A3BE8C] hover:bg-[#A3BE8C]/90 text-[#2E3440]' : 'bg-[#BF616A] hover:bg-[#BF616A]/90 text-[#ECEFF4]'"
                                 >
-                                    <svg v-if="isSubmittingMutation" class="animate-spin h-3.5 w-3.5 text-slate-950" viewBox="0 0 24 24">
+                                    <svg v-if="isSubmittingMutation" class="animate-spin h-3.5 w-3.5" viewBox="0 0 24 24">
                                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
                                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
                                     </svg>
@@ -1127,18 +1144,18 @@ onUnmounted(() => {
                 </div>
 
                 <!-- Empty State for Rack with no items -->
-                <div v-if="rackItems.length === 0 && !isAddingItem" class="p-6 bg-slate-950 rounded-xl border border-slate-800 text-center">
-                    <svg class="w-10 h-10 text-slate-600 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div v-if="rackItems.length === 0 && !isAddingItem" class="p-6 bg-[#2E3440] rounded-xl border border-[#4C566A]/60 text-center">
+                    <svg class="w-10 h-10 text-[#4C566A] mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
                     </svg>
-                    <h4 class="font-bold text-slate-300 text-sm">Rak ini belum memiliki item/barang tersimpan</h4>
-                    <p class="text-xs text-slate-500 mt-1 max-w-sm mx-auto mb-4">
+                    <h4 class="font-bold text-[#ECEFF4] text-sm">Rak ini belum memiliki item/barang tersimpan</h4>
+                    <p class="text-xs text-[#A5B1C2] mt-1 max-w-sm mx-auto mb-4">
                         Rak [{{ activeBarcode.rack_code }}] saat ini kosong. Anda dapat langsung menambahkan barang pertama ke dalam rak ini sekarang:
                     </p>
                     <button
                         type="button"
                         @click="openAddItemForm"
-                        class="px-4 py-2 text-xs font-bold text-slate-950 bg-amber-400 hover:bg-amber-300 rounded-lg shadow-md transition-all inline-flex items-center gap-2 active:scale-95"
+                        class="px-4 py-2 text-xs font-bold text-[#ECEFF4] bg-[#5E81AC] hover:bg-[#81A1C1] rounded-lg shadow-md transition-all inline-flex items-center gap-2 active:scale-95"
                     >
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
@@ -1149,19 +1166,19 @@ onUnmounted(() => {
             </div>
 
             <!-- Initial Idle State (before scan) -->
-            <div v-else class="flex-1 flex flex-col items-center justify-center py-8 text-center text-slate-500">
-                <svg class="w-12 h-12 text-slate-700 mb-3 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div v-else class="flex-1 flex flex-col items-center justify-center py-8 text-center text-[#A5B1C2]">
+                <svg class="w-12 h-12 text-[#4C566A] mb-3 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
                 </svg>
-                <p class="text-sm font-semibold text-slate-400">Siap Menerima Scan Barcode</p>
-                <p class="text-xs text-slate-600 mt-1 max-w-xs">
+                <p class="text-sm font-semibold text-[#D8DEE9]">Siap Menerima Scan Barcode</p>
+                <p class="text-xs text-[#8C96A9] mt-1 max-w-xs">
                     Ketik kode stiker barcode rak atau klik salah satu pilihan rak di atas untuk memuat inventaris barang.
                 </p>
             </div>
 
             <!-- Modal Footer -->
-            <div class="flex items-center justify-between pt-3 mt-auto border-t border-slate-800">
-                <div class="text-[11px] text-slate-500 font-mono">
+            <div class="flex items-center justify-between pt-3 mt-auto border-t border-[#4C566A]/60">
+                <div class="text-[11px] text-[#A5B1C2] font-mono">
                     <span v-if="activeBarcode">Rak Terhubung: {{ activeBarcode.rack_code }} ({{ activeBarcode.barcode_code }})</span>
                     <span v-else>Tekan Esc untuk menutup</span>
                 </div>
@@ -1170,7 +1187,7 @@ onUnmounted(() => {
                     <button
                         type="button"
                         @click="closeModal"
-                        class="px-4 py-2 text-xs font-semibold text-slate-300 hover:bg-slate-800 rounded-lg transition-colors"
+                        class="px-4 py-2 text-xs font-semibold text-[#D8DEE9] hover:bg-[#434C5E] rounded-lg transition-colors"
                     >
                         Tutup
                     </button>

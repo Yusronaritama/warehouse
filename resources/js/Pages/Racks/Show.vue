@@ -122,14 +122,11 @@ const isSubmittingAdd = ref(false);
 const addError = ref(null);
 
 const DEFAULT_CATEGORIES = [
-    'Heavy Equipment',
-    'Material Handlers',
-    'Safety Gear',
-    'Electronics',
-    'Spare Parts',
-    'Perlengkapan',
-    'Konsumsi',
-    'Aset',
+    'Bahan Baku',
+    'Painting',
+    'Masking',
+    'Buffing',
+    'Packaging',
 ];
 
 const mergedCategories = computed(() => {
@@ -143,7 +140,7 @@ const enablePackagingAdd = ref(false);
 const newItem = ref({
     code: '',
     name: '',
-    category: 'Heavy Equipment',
+    category: 'Bahan Baku',
     stock: 1,
     base_unit: 'Pcs',
     packaging_unit: 'Box',
@@ -161,7 +158,7 @@ function openAddModal() {
     newItem.value = {
         code: `SKU-${cleanRack}-${rand}`,
         name: '',
-        category: mergedCategories.value[0] || 'Heavy Equipment',
+        category: mergedCategories.value[0] || 'Bahan Baku',
         stock: 1,
         base_unit: 'Pcs',
         packaging_unit: 'Box',
@@ -388,44 +385,54 @@ async function handleStockConfirm(payload) {
 // Helper badge styles
 function getCategoryBadge(category) {
     switch (category) {
+        case 'Bahan Baku':
+            return 'bg-[#81A1C1]/15 text-[#81A1C1] border-[#81A1C1]/30';
+        case 'Painting':
+            return 'bg-[#B48EAD]/15 text-[#B48EAD] border-[#B48EAD]/30';
+        case 'Masking':
+            return 'bg-[#EBCB8B]/15 text-[#EBCB8B] border-[#EBCB8B]/30';
+        case 'Buffing':
+            return 'bg-[#A3BE8C]/15 text-[#A3BE8C] border-[#A3BE8C]/30';
+        case 'Packaging':
+            return 'bg-[#88C0D0]/15 text-[#88C0D0] border-[#88C0D0]/30';
         case 'Heavy Equipment':
-            return 'bg-amber-500/10 text-amber-400 border-amber-500/30';
+            return 'bg-[#EBCB8B]/15 text-[#EBCB8B] border-[#EBCB8B]/30';
         case 'Material Handlers':
-            return 'bg-blue-500/10 text-blue-400 border-blue-500/30';
+            return 'bg-[#81A1C1]/15 text-[#81A1C1] border-[#81A1C1]/30';
         case 'Safety Gear':
-            return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30';
+            return 'bg-[#A3BE8C]/15 text-[#A3BE8C] border-[#A3BE8C]/30';
         case 'Electronics':
-            return 'bg-purple-500/10 text-purple-400 border-purple-500/30';
+            return 'bg-[#B48EAD]/15 text-[#B48EAD] border-[#B48EAD]/30';
         case 'Spare Parts':
-            return 'bg-cyan-500/10 text-cyan-400 border-cyan-500/30';
+            return 'bg-[#88C0D0]/15 text-[#88C0D0] border-[#88C0D0]/30';
         default:
-            return 'bg-slate-800 text-slate-300 border-slate-700';
+            return 'bg-[#434C5E]/60 text-[#D8DEE9] border-[#4C566A]/60';
     }
 }
 
 function getConditionBadge(condition) {
     switch (condition) {
         case 'Good':
-            return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30';
+            return 'bg-[#A3BE8C]/15 text-[#A3BE8C] border-[#A3BE8C]/30';
         case 'Fair':
-            return 'bg-amber-500/10 text-amber-400 border-amber-500/30';
+            return 'bg-[#EBCB8B]/15 text-[#EBCB8B] border-[#EBCB8B]/30';
         case 'Damaged':
-            return 'bg-rose-500/10 text-rose-400 border-rose-500/30';
+            return 'bg-[#BF616A]/15 text-[#BF616A] border-[#BF616A]/30';
         default:
-            return 'bg-slate-800 text-slate-400 border-slate-700';
+            return 'bg-[#434C5E]/60 text-[#D8DEE9] border-[#4C566A]/60';
     }
 }
 
 function getStatusBadge(status) {
     switch (status) {
         case 'Ready':
-            return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30';
+            return 'bg-[#A3BE8C]/15 text-[#A3BE8C] border-[#A3BE8C]/30';
         case 'Low Stock':
-            return 'bg-rose-500/10 text-rose-400 border-rose-500/30';
+            return 'bg-[#BF616A]/15 text-[#BF616A] border-[#BF616A]/30';
         case 'In Maintenance':
-            return 'bg-amber-500/10 text-amber-400 border-amber-500/30';
+            return 'bg-[#EBCB8B]/15 text-[#EBCB8B] border-[#EBCB8B]/30';
         default:
-            return 'bg-slate-800 text-slate-300 border-slate-700';
+            return 'bg-[#434C5E]/60 text-[#D8DEE9] border-[#4C566A]/60';
     }
 }
 </script>
@@ -436,36 +443,36 @@ function getStatusBadge(status) {
     <AuthenticatedLayout>
         <div class="py-6 sm:py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
             <!-- 1. Breadcrumbs & Top Navigation -->
-            <div class="flex flex-wrap items-center justify-between gap-3 pb-2 border-b border-slate-800/80">
-                <div class="flex items-center gap-2 text-xs text-slate-400 font-medium">
-                    <Link :href="route('dashboard')" class="hover:text-amber-400 transition-colors flex items-center gap-1">
+            <div class="flex flex-wrap items-center justify-between gap-3 pb-2 border-b border-[#4C566A]/60">
+                <div class="flex items-center gap-2 text-xs text-[#A5B1C2] font-medium">
+                    <Link :href="route('dashboard')" class="hover:text-[#88C0D0] transition-colors flex items-center gap-1">
                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
                         </svg>
                         Dashboard
                     </Link>
                     <span>/</span>
-                    <Link :href="route('barcodes.index')" class="hover:text-amber-400 transition-colors">
+                    <Link :href="route('barcodes.index')" class="hover:text-[#88C0D0] transition-colors">
                         Master Barcode Rak
                     </Link>
                     <span>/</span>
-                    <span class="text-amber-400 font-mono font-bold">Rak {{ rack.rack_code }}</span>
+                    <span class="text-[#88C0D0] font-mono font-bold">Rak {{ rack.rack_code }}</span>
                 </div>
 
                 <div class="flex items-center gap-2">
                     <button
                         type="button"
                         @click="showPrintModal = true"
-                        class="px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold flex items-center gap-1.5 transition-all shadow-sm"
+                        class="px-3.5 py-1.5 rounded-lg bg-[#434C5E] hover:bg-[#4C566A] text-[#ECEFF4] border border-[#4C566A] text-xs font-semibold flex items-center gap-1.5 transition-all shadow-xs"
                     >
-                        <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg class="w-3.5 h-3.5 text-[#88C0D0]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
                         </svg>
                         Cetak Stiker Barcode
                     </button>
                     <Link
                         :href="route('dashboard')"
-                        class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800 text-xs font-semibold flex items-center gap-1 transition-all"
+                        class="px-3 py-1.5 rounded-lg bg-[#2E3440] hover:bg-[#434C5E] text-[#A5B1C2] hover:text-[#ECEFF4] border border-[#4C566A]/60 text-xs font-semibold flex items-center gap-1 transition-all"
                     >
                         &larr; Kembali
                     </Link>
@@ -476,47 +483,45 @@ function getStatusBadge(status) {
             <div
                 v-if="rackAlert"
                 class="p-4 rounded-xl border flex items-center justify-between transition-all"
-                :class="rackAlert.type === 'success' ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300' : 'bg-rose-500/10 border-rose-500/30 text-rose-300'"
+                :class="rackAlert.type === 'success' ? 'bg-[#A3BE8C]/15 border-[#A3BE8C]/30 text-[#A3BE8C]' : 'bg-[#BF616A]/15 border-[#BF616A]/30 text-[#BF616A]'"
             >
                 <div class="flex items-center gap-2.5 text-sm">
-                    <span v-if="rackAlert.type === 'success'" class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span v-else class="h-2 w-2 rounded-full bg-rose-400 animate-pulse"></span>
+                    <span v-if="rackAlert.type === 'success'" class="h-2 w-2 rounded-full bg-[#A3BE8C] animate-pulse"></span>
+                    <span v-else class="h-2 w-2 rounded-full bg-[#BF616A] animate-pulse"></span>
                     <span>{{ rackAlert.message }}</span>
                 </div>
-                <button @click="rackAlert = null" class="text-slate-400 hover:text-white text-xs">&times;</button>
+                <button @click="rackAlert = null" class="text-[#A5B1C2] hover:text-[#ECEFF4] text-xs">&times;</button>
             </div>
 
             <!-- 2. Header Card: Nama Rak & Fitur Ubah Nama Rak -->
-            <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-6 shadow-xl relative overflow-hidden backdrop-blur-md">
-                <div class="absolute -top-16 -right-16 w-52 h-52 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
-
+            <div class="bg-[#3B4252] border border-[#4C566A]/60 rounded-2xl p-6 shadow-xl relative overflow-hidden">
                 <!-- View Mode Header -->
                 <div v-if="!isEditingRackInfo" class="flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div class="space-y-2">
                         <div class="flex flex-wrap items-center gap-2.5">
-                            <span class="px-3 py-1 rounded-md bg-amber-500/10 text-amber-400 border border-amber-500/30 font-mono text-sm font-extrabold tracking-wider">
+                            <span class="px-3 py-1 rounded-md bg-[#88C0D0]/15 text-[#88C0D0] border border-[#88C0D0]/30 font-mono text-sm font-extrabold tracking-wider">
                                 LOKASI RAK: {{ rack.rack_code }}
                             </span>
-                            <span class="px-2.5 py-1 rounded-md bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-mono text-xs font-semibold">
+                            <span class="px-2.5 py-1 rounded-md bg-[#2E3440] text-[#D8DEE9] border border-[#4C566A]/60 font-mono text-xs font-semibold">
                                 {{ rack.barcode_code }}
                             </span>
                             <span
                                 class="px-2.5 py-1 rounded-md text-xs font-bold border"
-                                :class="rack.status === 'ACTIVE' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30' : 'bg-slate-800 text-slate-400 border-slate-700'"
+                                :class="rack.status === 'ACTIVE' ? 'bg-[#A3BE8C]/15 text-[#A3BE8C] border-[#A3BE8C]/30' : 'bg-[#BF616A]/15 text-[#BF616A] border-[#BF616A]/30'"
                             >
                                 {{ rack.status }}
                             </span>
-                            <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400 text-xs font-mono">
+                            <span class="px-2 py-0.5 rounded bg-[#2E3440] border border-[#4C566A]/60 text-[#D8DEE9] text-xs font-mono">
                                 {{ rack.zone }}
                             </span>
                         </div>
 
                         <!-- Nama Rak Utama -->
-                        <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
+                        <h1 class="text-2xl sm:text-3xl font-extrabold text-[#ECEFF4] tracking-tight flex items-center gap-3">
                             <span>{{ rack.label }}</span>
                         </h1>
 
-                        <p class="text-sm text-slate-400 max-w-2xl leading-relaxed">
+                        <p class="text-sm text-[#A5B1C2] max-w-2xl leading-relaxed">
                             {{ rack.description || 'Tidak ada catatan atau deskripsi spesifik untuk lokasi rak ini.' }}
                         </p>
                     </div>
@@ -526,9 +531,9 @@ function getStatusBadge(status) {
                         <button
                             type="button"
                             @click="isEditingRackInfo = true"
-                            class="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 active:scale-95 transition-all"
+                            class="px-4 py-2.5 rounded-xl bg-[#434C5E] hover:bg-[#4C566A] text-[#ECEFF4] border border-[#4C566A] font-bold text-xs flex items-center justify-center gap-2 shadow-xs active:scale-95 transition-all"
                         >
-                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg class="w-4 h-4 text-[#88C0D0]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                             </svg>
                             Ubah Nama & Info Rak
@@ -537,7 +542,7 @@ function getStatusBadge(status) {
                         <button
                             type="button"
                             @click="openAddModal"
-                            class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20 active:scale-95 transition-all"
+                            class="px-4 py-2.5 rounded-xl bg-[#5E81AC] hover:bg-[#81A1C1] text-[#ECEFF4] font-bold text-xs flex items-center justify-center gap-2 shadow-xs active:scale-95 transition-all"
                         >
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
@@ -549,44 +554,44 @@ function getStatusBadge(status) {
 
                 <!-- Edit Mode Form: Mengubah Nama Rak -->
                 <form v-else @submit.prevent="submitRackUpdate" class="space-y-4">
-                    <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                    <div class="flex items-center justify-between pb-3 border-b border-[#4C566A]/60">
                         <div class="flex items-center gap-2">
-                            <span class="p-1 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded">
+                            <span class="p-1 bg-[#434C5E] text-[#88C0D0] border border-[#4C566A] rounded">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
                                 </svg>
                             </span>
-                            <h3 class="text-sm font-bold text-white">Edit Nama & Informasi Rak {{ rack.rack_code }}</h3>
+                            <h3 class="text-sm font-bold text-[#ECEFF4]">Edit Nama & Informasi Rak {{ rack.rack_code }}</h3>
                         </div>
-                        <span class="text-xs text-slate-500 font-mono">Kode Rak: {{ rack.rack_code }} (Permanen)</span>
+                        <span class="text-xs text-[#A5B1C2] font-mono">Kode Rak: {{ rack.rack_code }} (Permanen)</span>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <!-- Nama / Label Rak Input -->
                         <div class="md:col-span-2">
-                            <label class="block text-xs font-semibold text-slate-300 mb-1.5">
-                                Nama / Label Rak <span class="text-rose-400">*</span>
+                            <label class="block text-xs font-semibold text-[#A5B1C2] mb-1.5">
+                                Nama / Label Rak <span class="text-[#BF616A]">*</span>
                             </label>
                             <input
                                 v-model="rackForm.label"
                                 type="text"
                                 placeholder="cth: Rak Pallet Utama Heavy Equipment"
-                                class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3.5 py-2 text-sm text-white focus:border-amber-500 focus:ring-1 focus:ring-amber-500"
+                                class="w-full bg-[#2E3440] border border-[#4C566A] rounded-lg px-3.5 py-2 text-sm text-[#ECEFF4] placeholder-[#8C96A9] focus:border-[#88C0D0] focus:ring-1 focus:ring-[#88C0D0]"
                                 required
                             />
-                            <p class="text-[11px] text-slate-500 mt-1">Nama ini akan tercetak pada stiker barcode dan muncul di pencarian sistem.</p>
+                            <p class="text-[11px] text-[#A5B1C2] mt-1">Nama ini akan tercetak pada stiker barcode dan muncul di pencarian sistem.</p>
                         </div>
 
                         <!-- Zona Gudang Input -->
                         <div>
-                            <label class="block text-xs font-semibold text-slate-300 mb-1.5">
+                            <label class="block text-xs font-semibold text-[#A5B1C2] mb-1.5">
                                 Zona Gudang
                             </label>
                             <input
                                 v-model="rackForm.zone"
                                 type="text"
                                 placeholder="cth: Zone A"
-                                class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3.5 py-2 text-sm text-white focus:border-amber-500 focus:ring-1 focus:ring-amber-500 font-mono"
+                                class="w-full bg-[#2E3440] border border-[#4C566A] rounded-lg px-3.5 py-2 text-sm text-[#ECEFF4] placeholder-[#8C96A9] focus:border-[#88C0D0] focus:ring-1 focus:ring-[#88C0D0] font-mono"
                             />
                         </div>
                     </div>
@@ -594,25 +599,25 @@ function getStatusBadge(status) {
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <!-- Deskripsi / Catatan Rak -->
                         <div class="md:col-span-2">
-                            <label class="block text-xs font-semibold text-slate-300 mb-1.5">
+                            <label class="block text-xs font-semibold text-[#A5B1C2] mb-1.5">
                                 Deskripsi / Catatan Lokasi Rak
                             </label>
                             <input
                                 v-model="rackForm.description"
                                 type="text"
                                 placeholder="cth: Lantai 1 dekat pintu timur, khusus aset berat"
-                                class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3.5 py-2 text-sm text-white focus:border-amber-500 focus:ring-1 focus:ring-amber-500"
+                                class="w-full bg-[#2E3440] border border-[#4C566A] rounded-lg px-3.5 py-2 text-sm text-[#ECEFF4] placeholder-[#8C96A9] focus:border-[#88C0D0] focus:ring-1 focus:ring-[#88C0D0]"
                             />
                         </div>
 
                         <!-- Status Rak -->
                         <div>
-                            <label class="block text-xs font-semibold text-slate-300 mb-1.5">
+                            <label class="block text-xs font-semibold text-[#A5B1C2] mb-1.5">
                                 Status Rak
                             </label>
                             <select
                                 v-model="rackForm.status"
-                                class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3.5 py-2 text-sm text-white focus:border-amber-500 focus:ring-1 focus:ring-amber-500"
+                                class="w-full bg-[#2E3440] border border-[#4C566A] rounded-lg px-3.5 py-2 text-sm text-[#ECEFF4] focus:border-[#88C0D0] focus:ring-1 focus:ring-[#88C0D0]"
                             >
                                 <option value="ACTIVE">ACTIVE (Tersedia)</option>
                                 <option value="INACTIVE">INACTIVE (Nonaktif / Pemeliharaan)</option>
@@ -621,18 +626,18 @@ function getStatusBadge(status) {
                     </div>
 
                     <!-- Submit & Cancel buttons -->
-                    <div class="flex items-center justify-end gap-2.5 pt-2 border-t border-slate-800">
+                    <div class="flex items-center justify-end gap-2.5 pt-2 border-t border-[#4C566A]/60">
                         <button
                             type="button"
                             @click="cancelRackEdit"
-                            class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-all"
+                            class="px-4 py-2 rounded-lg bg-[#2E3440] hover:bg-[#434C5E] text-[#A5B1C2] hover:text-[#ECEFF4] text-xs font-semibold transition-all"
                         >
                             Batal
                         </button>
                         <button
                             type="submit"
                             :disabled="isSavingRack"
-                            class="px-5 py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-md shadow-amber-500/20 disabled:opacity-50 transition-all flex items-center gap-1.5"
+                            class="px-5 py-2 rounded-lg bg-[#5E81AC] hover:bg-[#81A1C1] text-[#ECEFF4] font-bold text-xs shadow-md disabled:opacity-50 transition-all flex items-center gap-1.5 active:scale-95"
                         >
                             <svg v-if="isSavingRack" class="animate-spin h-3.5 w-3.5" viewBox="0 0 24 24">
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
@@ -644,46 +649,46 @@ function getStatusBadge(status) {
                 </form>
 
                 <!-- Mini Stats Bar inside header -->
-                <div class="mt-5 pt-4 border-t border-slate-800/80 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-                    <div class="p-2.5 rounded-lg bg-slate-900/60 border border-slate-800/60">
-                        <span class="text-slate-400 block text-[11px]">Total Item di Rak</span>
-                        <span class="font-bold font-mono text-white text-base">{{ totalItemsCount }} SKU</span>
+                <div class="mt-5 pt-4 border-t border-[#4C566A]/60 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+                    <div class="p-2.5 rounded-lg bg-[#2E3440] border border-[#4C566A]/60">
+                        <span class="text-[#A5B1C2] block text-[11px]">Total Item di Rak</span>
+                        <span class="font-bold font-mono text-[#ECEFF4] text-base">{{ totalItemsCount }} SKU</span>
                     </div>
-                    <div class="p-2.5 rounded-lg bg-slate-900/60 border border-slate-800/60">
-                        <span class="text-slate-400 block text-[11px]">Total Fisik Tersimpan</span>
-                        <span class="font-bold font-mono text-emerald-400 text-base">{{ totalStockCount }} Unit</span>
+                    <div class="p-2.5 rounded-lg bg-[#2E3440] border border-[#4C566A]/60">
+                        <span class="text-[#A5B1C2] block text-[11px]">Total Fisik Tersimpan</span>
+                        <span class="font-bold font-mono text-[#A3BE8C] text-base">{{ totalStockCount }} Unit</span>
                     </div>
-                    <div class="p-2.5 rounded-lg bg-slate-900/60 border border-slate-800/60">
-                        <span class="text-slate-400 block text-[11px]">Total Dipindai</span>
-                        <span class="font-bold font-mono text-cyan-400 text-base">{{ rack.scan_count }} Kali</span>
+                    <div class="p-2.5 rounded-lg bg-[#2E3440] border border-[#4C566A]/60">
+                        <span class="text-[#A5B1C2] block text-[11px]">Total Dipindai</span>
+                        <span class="font-bold font-mono text-[#88C0D0] text-base">{{ rack.scan_count }} Kali</span>
                     </div>
-                    <div class="p-2.5 rounded-lg bg-slate-900/60 border border-slate-800/60">
-                        <span class="text-slate-400 block text-[11px]">Didaftarkan Oleh</span>
-                        <span class="font-medium text-slate-300 text-xs truncate block">{{ rack.created_by || 'Petugas Terminal' }}</span>
+                    <div class="p-2.5 rounded-lg bg-[#2E3440] border border-[#4C566A]/60">
+                        <span class="text-[#A5B1C2] block text-[11px]">Didaftarkan Oleh</span>
+                        <span class="font-medium text-[#ECEFF4] text-xs truncate block">{{ rack.created_by || 'Petugas Terminal' }}</span>
                     </div>
                 </div>
             </div>
 
-            <!-- 3. Section CRUD Barang di Rak Ini ("Hanya CRUD Doang") -->
-            <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+            <!-- 3. Section CRUD Barang di Rak Ini -->
+            <div class="bg-[#3B4252] border border-[#4C566A]/60 rounded-2xl p-6 shadow-xl space-y-4">
                 <!-- Section Header & Controls -->
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#4C566A]/60">
                     <div class="flex items-center gap-2.5">
-                        <span class="p-1.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-lg">
+                        <span class="p-1.5 bg-[#434C5E] text-[#88C0D0] border border-[#4C566A] rounded-lg">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
                             </svg>
                         </span>
                         <div>
-                            <h2 class="text-base font-bold text-white">Daftar Barang & Aset di Rak Ini</h2>
-                            <p class="text-xs text-slate-400">Kelola inventaris fisik pada rak {{ rack.rack_code }} secara langsung (CRUD).</p>
+                            <h2 class="text-base font-bold text-[#ECEFF4]">Daftar Barang & Aset di Rak Ini</h2>
+                            <p class="text-xs text-[#A5B1C2]">Kelola inventaris fisik pada rak {{ rack.rack_code }} secara langsung (CRUD).</p>
                         </div>
                     </div>
 
                     <button
                         type="button"
                         @click="openAddModal"
-                        class="px-3.5 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-md shadow-emerald-600/20 active:scale-95"
+                        class="px-3.5 py-2 rounded-lg bg-[#5E81AC] hover:bg-[#81A1C1] text-[#ECEFF4] font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-xs active:scale-95"
                     >
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
@@ -699,9 +704,9 @@ function getStatusBadge(status) {
                             v-model="searchQuery"
                             type="text"
                             placeholder="Cari nama barang atau kode SKU di rak ini..."
-                            class="w-full bg-slate-900 border border-slate-700 rounded-lg pl-9 pr-3 py-2 text-xs text-white placeholder-slate-500 focus:border-amber-500 focus:ring-1 focus:ring-amber-500"
+                            class="w-full bg-[#2E3440] border border-[#4C566A] rounded-lg pl-9 pr-3 py-2 text-xs text-[#ECEFF4] placeholder-[#8C96A9] focus:border-[#88C0D0] focus:ring-1 focus:ring-[#88C0D0]"
                         />
-                        <svg class="w-4 h-4 text-slate-500 absolute left-3 top-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg class="w-4 h-4 text-[#8C96A9] absolute left-3 top-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                         </svg>
                     </div>
@@ -709,7 +714,7 @@ function getStatusBadge(status) {
                     <div class="flex items-center gap-2">
                         <select
                             v-model="selectedCategoryFilter"
-                            class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-300 focus:border-amber-500"
+                            class="bg-[#2E3440] border border-[#4C566A] rounded-lg px-3 py-2 text-xs text-[#ECEFF4] focus:border-[#88C0D0]"
                         >
                             <option value="ALL">Semua Kategori</option>
                             <option v-for="cat in mergedCategories" :key="cat" :value="cat">{{ cat }}</option>
@@ -717,7 +722,7 @@ function getStatusBadge(status) {
 
                         <select
                             v-model="selectedStatusFilter"
-                            class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-300 focus:border-amber-500"
+                            class="bg-[#2E3440] border border-[#4C566A] rounded-lg px-3 py-2 text-xs text-[#ECEFF4] focus:border-[#88C0D0]"
                         >
                             <option value="ALL">Semua Status</option>
                             <option value="Ready">Ready</option>
@@ -728,9 +733,9 @@ function getStatusBadge(status) {
                 </div>
 
                 <!-- Table of Items (READ) -->
-                <div class="overflow-x-auto rounded-xl border border-slate-800">
-                    <table class="w-full text-left text-xs">
-                        <thead class="bg-slate-900/90 text-slate-400 font-semibold border-b border-slate-800">
+                <div class="overflow-x-auto rounded-xl border border-[#4C566A]/60">
+                    <table class="w-full text-left text-xs text-[#D8DEE9]">
+                        <thead class="bg-[#434C5E]/60 text-[#D8DEE9] font-semibold border-b border-[#4C566A]/60">
                             <tr>
                                 <th class="py-3 px-4">SKU / Kode</th>
                                 <th class="py-3 px-4">Nama Barang</th>
@@ -741,21 +746,21 @@ function getStatusBadge(status) {
                                 <th class="py-3 px-4 text-center">Aksi CRUD</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-slate-800/80">
+                        <tbody class="divide-y divide-[#4C566A]/40">
                             <tr
                                 v-for="item in filteredItems"
                                 :key="item.id"
-                                class="hover:bg-slate-900/50 transition-colors group"
+                                class="hover:bg-[#434C5E]/50 transition-colors group"
                             >
                                 <!-- SKU -->
-                                <td class="py-3 px-4 font-mono font-bold text-amber-400 whitespace-nowrap">
+                                <td class="py-3 px-4 font-mono font-bold text-[#88C0D0] whitespace-nowrap">
                                     {{ item.code }}
                                 </td>
 
                                 <!-- Nama Barang -->
                                 <td class="py-3 px-4">
-                                    <div class="font-bold text-slate-100 text-sm">{{ item.name }}</div>
-                                    <div class="text-[11px] text-slate-500 font-mono mt-0.5 truncate max-w-xs">
+                                    <div class="font-bold text-[#ECEFF4] text-sm">{{ item.name }}</div>
+                                    <div class="text-[11px] text-[#A5B1C2] font-mono mt-0.5 truncate max-w-xs">
                                         {{ item.location }}
                                     </div>
                                 </td>
@@ -769,10 +774,10 @@ function getStatusBadge(status) {
 
                                 <!-- Stok Aktual (Dual UoM) -->
                                 <td class="py-3 px-4 text-right whitespace-nowrap font-mono">
-                                    <div class="text-sm font-extrabold text-emerald-400">
+                                    <div class="text-sm font-extrabold text-[#A3BE8C]">
                                         {{ item.formatted_stock }}
                                     </div>
-                                    <div v-if="item.packaging_unit && item.conversion_factor > 1" class="text-[10px] text-slate-500">
+                                    <div v-if="item.packaging_unit && item.conversion_factor > 1" class="text-[10px] text-[#A5B1C2]">
                                         ({{ item.stock }} {{ item.base_unit }})
                                     </div>
                                 </td>
@@ -799,7 +804,7 @@ function getStatusBadge(status) {
                                             type="button"
                                             @click="openStockModal(item, 'in')"
                                             title="Tambah Stok (Inbound)"
-                                            class="p-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 transition-all"
+                                            class="p-1.5 rounded-lg bg-[#A3BE8C]/15 hover:bg-[#A3BE8C]/25 text-[#A3BE8C] border border-[#A3BE8C]/30 transition-all"
                                         >
                                             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
@@ -811,7 +816,7 @@ function getStatusBadge(status) {
                                             type="button"
                                             @click="openStockModal(item, 'out')"
                                             title="Keluarkan Stok (Outbound)"
-                                            class="p-1.5 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 transition-all"
+                                            class="p-1.5 rounded-lg bg-[#BF616A]/15 hover:bg-[#BF616A]/25 text-[#BF616A] border border-[#BF616A]/30 transition-all"
                                         >
                                             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/>
@@ -823,9 +828,9 @@ function getStatusBadge(status) {
                                             type="button"
                                             @click="openEditModal(item)"
                                             title="Edit Data Barang"
-                                            class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold flex items-center gap-1 transition-all"
+                                            class="px-2.5 py-1.5 rounded-lg bg-[#434C5E] hover:bg-[#4C566A] text-[#ECEFF4] border border-[#4C566A] text-xs font-semibold flex items-center gap-1 transition-all"
                                         >
-                                            <svg class="w-3.5 h-3.5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <svg class="w-3.5 h-3.5 text-[#88C0D0]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
                                             </svg>
                                             Edit
@@ -836,7 +841,7 @@ function getStatusBadge(status) {
                                             type="button"
                                             @click="openDeleteModal(item)"
                                             title="Hapus Barang"
-                                            class="p-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 transition-all"
+                                            class="p-1.5 rounded-lg bg-[#434C5E] hover:bg-[#BF616A]/15 text-[#A5B1C2] hover:text-[#BF616A] border border-[#4C566A] transition-all"
                                         >
                                             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
@@ -848,13 +853,13 @@ function getStatusBadge(status) {
 
                             <!-- Empty State -->
                             <tr v-if="filteredItems.length === 0">
-                                <td colspan="7" class="py-12 text-center text-slate-500">
+                                <td colspan="7" class="py-12 text-center text-[#A5B1C2]">
                                     <div class="flex flex-col items-center justify-center gap-2">
-                                        <svg class="w-8 h-8 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <svg class="w-8 h-8 text-[#4C566A]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
                                         </svg>
-                                        <span class="text-sm font-semibold">Belum ada barang di rak ini</span>
-                                        <p class="text-xs text-slate-600 max-w-sm">
+                                        <span class="text-sm font-semibold text-[#D8DEE9]">Belum ada barang di rak ini</span>
+                                        <p class="text-xs text-[#8C96A9] max-w-sm">
                                             Klik tombol "+ Tambah Barang ke Rak Ini" di atas untuk mendaftarkan barang baru langsung ke rak {{ rack.rack_code }}.
                                         </p>
                                     </div>
@@ -869,40 +874,40 @@ function getStatusBadge(status) {
         <!-- ================================================================= -->
         <!-- MODAL 1: Tambah Barang Baru ke Rak (CREATE)                        -->
         <!-- ================================================================= -->
-        <div v-if="showAddModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
-                <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div v-if="showAddModal" class="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
+            <div class="bg-[#3B4252] border border-[#4C566A]/60 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto text-[#ECEFF4]">
+                <div class="flex items-center justify-between pb-3 border-b border-[#4C566A]/60">
                     <div class="flex items-center gap-2">
-                        <span class="p-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded">
+                        <span class="p-1 bg-[#434C5E] text-[#88C0D0] border border-[#4C566A] rounded">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                             </svg>
                         </span>
-                        <h3 class="text-base font-bold text-white">Tambah Barang ke Rak {{ rack.rack_code }}</h3>
+                        <h3 class="text-base font-bold text-[#ECEFF4]">Tambah Barang ke Rak {{ rack.rack_code }}</h3>
                     </div>
-                    <button @click="showAddModal = false" class="text-slate-400 hover:text-white">&times;</button>
+                    <button @click="showAddModal = false" class="text-[#A5B1C2] hover:text-[#ECEFF4]">&times;</button>
                 </div>
 
-                <div v-if="addError" class="p-3 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs">
+                <div v-if="addError" class="p-3 rounded-lg bg-[#BF616A]/15 border border-[#BF616A]/30 text-[#BF616A] text-xs">
                     {{ addError }}
                 </div>
 
                 <form @submit.prevent="submitAddItem" class="space-y-4 text-xs">
                     <!-- SKU & Generator -->
                     <div>
-                        <label class="block font-semibold text-slate-300 mb-1">Kode SKU <span class="text-rose-400">*</span></label>
+                        <label class="block font-semibold text-[#A5B1C2] mb-1">Kode SKU <span class="text-[#BF616A]">*</span></label>
                         <div class="flex gap-2">
                             <input
                                 v-model="newItem.code"
                                 type="text"
                                 placeholder="cth: SKU-A01-102"
-                                class="flex-1 bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono uppercase focus:border-amber-500"
+                                class="flex-1 bg-[#2E3440] border border-[#4C566A] rounded-lg px-3 py-2 text-[#ECEFF4] font-mono uppercase focus:border-[#88C0D0]"
                                 required
                             />
                             <button
                                 type="button"
                                 @click="autoGenerateSkuAdd"
-                                class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg font-mono text-[11px]"
+                                class="px-3 py-2 bg-[#434C5E] hover:bg-[#4C566A] text-[#88C0D0] border border-[#4C566A] rounded-lg font-mono text-[11px]"
                             >
                                 Auto SKU
                             </button>
@@ -911,24 +916,24 @@ function getStatusBadge(status) {
 
                     <!-- Nama Barang -->
                     <div>
-                        <label class="block font-semibold text-slate-300 mb-1">Nama Barang <span class="text-rose-400">*</span></label>
+                        <label class="block font-semibold text-[#A5B1C2] mb-1">Nama Barang <span class="text-[#BF616A]">*</span></label>
                         <input
                             v-model="newItem.name"
                             type="text"
                             placeholder="cth: Safety Helmet Pro Yellow"
-                            class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-amber-500"
+                            class="w-full bg-[#2E3440] border border-[#4C566A] rounded-lg px-3 py-2 text-[#ECEFF4] focus:border-[#88C0D0]"
                             required
                         />
                     </div>
 
                     <!-- Kategori -->
                     <div>
-                        <label class="block font-semibold text-slate-300 mb-1 flex items-center justify-between">
+                        <label class="block font-semibold text-[#A5B1C2] mb-1 flex items-center justify-between">
                             <span>Kategori</span>
                             <button
                                 type="button"
                                 @click="isCustomCategoryAdd = !isCustomCategoryAdd"
-                                class="text-[10px] text-amber-400 hover:underline"
+                                class="text-[10px] text-[#88C0D0] hover:underline"
                             >
                                 {{ isCustomCategoryAdd ? 'Pilih Kategori Yang Ada' : '+ Kategori Baru' }}
                             </button>
@@ -938,65 +943,79 @@ function getStatusBadge(status) {
                             v-model="customCategoryInputAdd"
                             type="text"
                             placeholder="Ketik kategori baru..."
-                            class="w-full bg-slate-950 border border-amber-500/50 rounded-lg px-3 py-2 text-white focus:border-amber-500"
+                            class="w-full bg-[#2E3440] border border-[#88C0D0]/50 rounded-lg px-3 py-2 text-[#ECEFF4] focus:border-[#88C0D0]"
                         />
                         <select
                             v-else
                             v-model="newItem.category"
-                            class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-amber-500"
+                            class="w-full bg-[#2E3440] border border-[#4C566A] rounded-lg px-3 py-2 text-[#ECEFF4] focus:border-[#88C0D0]"
                         >
                             <option v-for="cat in mergedCategories" :key="cat" :value="cat">{{ cat }}</option>
                         </select>
                     </div>
 
                     <!-- Multi-UoM (Satuan Bertingkat) Toggle -->
-                    <div class="p-3 bg-slate-950/60 border border-slate-800 rounded-xl space-y-3">
+                    <div class="p-3 bg-[#2E3440] border border-[#4C566A]/60 rounded-xl space-y-3">
                         <div class="flex items-center justify-between">
-                            <span class="font-bold text-slate-200">Konfigurasi Satuan (Multi-UoM)</span>
+                            <span class="font-bold text-[#ECEFF4]">Konfigurasi Satuan (Multi-UoM)</span>
                             <label class="inline-flex items-center cursor-pointer gap-2">
                                 <input type="checkbox" v-model="enablePackagingAdd" class="sr-only peer" />
-                                <div class="w-8 h-4 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-amber-500"></div>
-                                <span class="text-[11px] text-slate-400">Gunakan Kemasan (Box/Dus)</span>
+                                <div class="w-8 h-4 bg-[#434C5E] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-[#5E81AC]"></div>
+                                <span class="text-[11px] text-[#A5B1C2]">Gunakan Kemasan (Box/Dus)</span>
                             </label>
                         </div>
 
                         <div class="grid grid-cols-2 gap-3">
                             <div>
-                                <label class="block text-slate-400 text-[11px] mb-1">Satuan Dasar (Terkecil)</label>
-                                <input
+                                <label class="block text-[#A5B1C2] text-[11px] mb-1">Satuan Dasar (Terkecil) <span class="text-[#BF616A]">*</span></label>
+                                <select
                                     v-model="newItem.base_unit"
-                                    type="text"
-                                    placeholder="cth: Pcs, Unit, Kg"
-                                    class="w-full bg-slate-900 border border-slate-700 rounded px-2.5 py-1.5 text-white"
-                                />
+                                    class="w-full bg-[#3B4252] border border-[#4C566A] rounded px-2.5 py-1.5 text-[#ECEFF4] focus:border-[#88C0D0]"
+                                    required
+                                >
+                                    <option value="Pcs">Pcs</option>
+                                    <option value="Liter">Liter</option>
+                                    <option value="Roll">Roll</option>
+                                    <option value="Botol">Botol</option>
+                                    <option value="Box">Box</option>
+                                    <option value="Unit">Unit</option>
+                                    <option value="Kg">Kg</option>
+                                    <option value="Meter">Meter</option>
+                                </select>
                             </div>
                             <div v-if="enablePackagingAdd">
-                                <label class="block text-slate-400 text-[11px] mb-1">Satuan Kemasan Besar</label>
-                                <input
+                                <label class="block text-[#A5B1C2] text-[11px] mb-1">Satuan Kemasan Besar</label>
+                                <select
                                     v-model="newItem.packaging_unit"
-                                    type="text"
-                                    placeholder="cth: Box, Dus, Karton"
-                                    class="w-full bg-slate-900 border border-slate-700 rounded px-2.5 py-1.5 text-white"
-                                />
+                                    class="w-full bg-[#3B4252] border border-[#4C566A] rounded px-2.5 py-1.5 text-[#ECEFF4] focus:border-[#88C0D0]"
+                                >
+                                    <option value="Box">Box</option>
+                                    <option value="Karton">Karton</option>
+                                    <option value="Pail">Pail</option>
+                                    <option value="Pack">Pack</option>
+                                    <option value="Ikat">Ikat</option>
+                                    <option value="Jerigen">Jerigen</option>
+                                    <option value="Dus">Dus</option>
+                                </select>
                             </div>
                         </div>
 
-                        <div v-if="enablePackagingAdd" class="grid grid-cols-2 gap-3 pt-1 border-t border-slate-900">
+                        <div v-if="enablePackagingAdd" class="grid grid-cols-2 gap-3 pt-1 border-t border-[#4C566A]/60">
                             <div>
-                                <label class="block text-slate-400 text-[11px] mb-1">Isi per Kemasan</label>
+                                <label class="block text-[#A5B1C2] text-[11px] mb-1">Isi per Kemasan</label>
                                 <input
                                     v-model.number="newItem.conversion_factor"
                                     type="number"
                                     min="2"
                                     placeholder="cth: 10"
-                                    class="w-full bg-slate-900 border border-slate-700 rounded px-2.5 py-1.5 text-white font-mono"
+                                    class="w-full bg-[#3B4252] border border-[#4C566A] rounded px-2.5 py-1.5 text-[#ECEFF4] font-mono"
                                 />
                             </div>
                             <div>
-                                <label class="block text-slate-400 text-[11px] mb-1">Input Stok Awal Dalam</label>
+                                <label class="block text-[#A5B1C2] text-[11px] mb-1">Input Stok Awal Dalam</label>
                                 <select
                                     v-model="newItem.initial_unit"
-                                    class="w-full bg-slate-900 border border-slate-700 rounded px-2.5 py-1.5 text-white"
+                                    class="w-full bg-[#3B4252] border border-[#4C566A] rounded px-2.5 py-1.5 text-[#ECEFF4]"
                                 >
                                     <option :value="newItem.packaging_unit">{{ newItem.packaging_unit || 'Kemasan' }}</option>
                                     <option :value="newItem.base_unit">{{ newItem.base_unit || 'Satuan Dasar' }}</option>
@@ -1008,24 +1027,24 @@ function getStatusBadge(status) {
                     <!-- Stok & Minimum Stock -->
                     <div class="grid grid-cols-2 gap-3">
                         <div>
-                            <label class="block font-semibold text-slate-300 mb-1">
+                            <label class="block font-semibold text-[#A5B1C2] mb-1">
                                 Jumlah Stok Awal ({{ enablePackagingAdd ? newItem.initial_unit : newItem.base_unit }})
                             </label>
                             <input
                                 v-model.number="newItem.stock"
                                 type="number"
                                 min="0"
-                                class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono font-bold"
+                                class="w-full bg-[#2E3440] border border-[#4C566A] rounded-lg px-3 py-2 text-[#ECEFF4] font-mono font-bold"
                                 required
                             />
                         </div>
                         <div>
-                            <label class="block font-semibold text-slate-300 mb-1">Batas Minimum Stok</label>
+                            <label class="block font-semibold text-[#A5B1C2] mb-1">Batas Minimum Stok</label>
                             <input
                                 v-model.number="newItem.min_stock"
                                 type="number"
                                 min="0"
-                                class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono"
+                                class="w-full bg-[#2E3440] border border-[#4C566A] rounded-lg px-3 py-2 text-[#ECEFF4] font-mono"
                             />
                         </div>
                     </div>
@@ -1033,16 +1052,16 @@ function getStatusBadge(status) {
                     <!-- Kondisi & Status -->
                     <div class="grid grid-cols-2 gap-3">
                         <div>
-                            <label class="block font-semibold text-slate-300 mb-1">Kondisi Fisik</label>
-                            <select v-model="newItem.condition" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white">
+                            <label class="block font-semibold text-[#A5B1C2] mb-1">Kondisi Fisik</label>
+                            <select v-model="newItem.condition" class="w-full bg-[#2E3440] border border-[#4C566A] rounded-lg px-3 py-2 text-[#ECEFF4]">
                                 <option value="Good">Good (Bagus / Baru)</option>
                                 <option value="Fair">Fair (Bekas / Normal)</option>
                                 <option value="Damaged">Damaged (Rusak / Afkir)</option>
                             </select>
                         </div>
                         <div>
-                            <label class="block font-semibold text-slate-300 mb-1">Status Ketersediaan</label>
-                            <select v-model="newItem.status" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white">
+                            <label class="block font-semibold text-[#A5B1C2] mb-1">Status Ketersediaan</label>
+                            <select v-model="newItem.status" class="w-full bg-[#2E3440] border border-[#4C566A] rounded-lg px-3 py-2 text-[#ECEFF4]">
                                 <option value="Ready">Ready</option>
                                 <option value="Low Stock">Low Stock</option>
                                 <option value="In Maintenance">In Maintenance</option>
@@ -1052,28 +1071,28 @@ function getStatusBadge(status) {
 
                     <!-- Shelf Level Detail -->
                     <div>
-                        <label class="block font-semibold text-slate-300 mb-1">Detail Ambalan / Baris Rak</label>
+                        <label class="block font-semibold text-[#A5B1C2] mb-1">Detail Ambalan / Baris Rak</label>
                         <input
                             v-model="newItem.shelf_detail"
                             type="text"
                             placeholder="cth: Rak 1, Tingkat 2, Slot B"
-                            class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white"
+                            class="w-full bg-[#2E3440] border border-[#4C566A] rounded-lg px-3 py-2 text-[#ECEFF4]"
                         />
                     </div>
 
                     <!-- Modal Action Buttons -->
-                    <div class="pt-4 flex items-center justify-end gap-2.5 border-t border-slate-800">
+                    <div class="pt-4 flex items-center justify-end gap-2.5 border-t border-[#4C566A]/60">
                         <button
                             type="button"
                             @click="showAddModal = false"
-                            class="px-4 py-2 rounded-lg bg-slate-800 text-slate-300 font-semibold hover:bg-slate-700"
+                            class="px-4 py-2 rounded-lg bg-[#2E3440] text-[#A5B1C2] hover:text-[#ECEFF4] font-semibold hover:bg-[#434C5E]"
                         >
                             Batal
                         </button>
                         <button
                             type="submit"
                             :disabled="isSubmittingAdd"
-                            class="px-5 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold shadow-lg shadow-emerald-600/20 disabled:opacity-50 flex items-center gap-1.5"
+                            class="px-5 py-2 rounded-lg bg-[#5E81AC] hover:bg-[#81A1C1] text-[#ECEFF4] font-bold shadow-md disabled:opacity-50 flex items-center gap-1.5 active:scale-95"
                         >
                             <svg v-if="isSubmittingAdd" class="animate-spin h-3.5 w-3.5" viewBox="0 0 24 24">
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
@@ -1089,21 +1108,21 @@ function getStatusBadge(status) {
         <!-- ================================================================= -->
         <!-- MODAL 2: Edit Barang Terdaftar (UPDATE)                           -->
         <!-- ================================================================= -->
-        <div v-if="showEditModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
-                <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div v-if="showEditModal" class="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
+            <div class="bg-[#3B4252] border border-[#4C566A]/60 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto text-[#ECEFF4]">
+                <div class="flex items-center justify-between pb-3 border-b border-[#4C566A]/60">
                     <div class="flex items-center gap-2">
-                        <span class="p-1 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded">
+                        <span class="p-1 bg-[#434C5E] text-[#88C0D0] border border-[#4C566A] rounded">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
                             </svg>
                         </span>
-                        <h3 class="text-base font-bold text-white">Edit Data Barang ({{ editForm.code }})</h3>
+                        <h3 class="text-base font-bold text-[#ECEFF4]">Edit Data Barang ({{ editForm.code }})</h3>
                     </div>
-                    <button @click="showEditModal = false" class="text-slate-400 hover:text-white">&times;</button>
+                    <button @click="showEditModal = false" class="text-[#A5B1C2] hover:text-[#ECEFF4]">&times;</button>
                 </div>
 
-                <div v-if="editError" class="p-3 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs">
+                <div v-if="editError" class="p-3 rounded-lg bg-[#BF616A]/15 border border-[#BF616A]/30 text-[#BF616A] text-xs">
                     {{ editError }}
                 </div>
 
@@ -1111,20 +1130,20 @@ function getStatusBadge(status) {
                     <!-- SKU & Name -->
                     <div class="grid grid-cols-3 gap-3">
                         <div>
-                            <label class="block font-semibold text-slate-300 mb-1">Kode SKU <span class="text-rose-400">*</span></label>
+                            <label class="block font-semibold text-[#A5B1C2] mb-1">Kode SKU <span class="text-[#BF616A]">*</span></label>
                             <input
                                 v-model="editForm.code"
                                 type="text"
-                                class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono uppercase focus:border-amber-500"
+                                class="w-full bg-[#2E3440] border border-[#4C566A] rounded-lg px-3 py-2 text-[#ECEFF4] font-mono uppercase focus:border-[#88C0D0]"
                                 required
                             />
                         </div>
                         <div class="col-span-2">
-                            <label class="block font-semibold text-slate-300 mb-1">Nama Barang <span class="text-rose-400">*</span></label>
+                            <label class="block font-semibold text-[#A5B1C2] mb-1">Nama Barang <span class="text-[#BF616A]">*</span></label>
                             <input
                                 v-model="editForm.name"
                                 type="text"
-                                class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-amber-500"
+                                class="w-full bg-[#2E3440] border border-[#4C566A] rounded-lg px-3 py-2 text-[#ECEFF4] focus:border-[#88C0D0]"
                                 required
                             />
                         </div>
@@ -1132,12 +1151,12 @@ function getStatusBadge(status) {
 
                     <!-- Kategori -->
                     <div>
-                        <label class="block font-semibold text-slate-300 mb-1 flex items-center justify-between">
+                        <label class="block font-semibold text-[#A5B1C2] mb-1 flex items-center justify-between">
                             <span>Kategori</span>
                             <button
                                 type="button"
                                 @click="isCustomCategoryEdit = !isCustomCategoryEdit"
-                                class="text-[10px] text-amber-400 hover:underline"
+                                class="text-[10px] text-[#88C0D0] hover:underline"
                             >
                                 {{ isCustomCategoryEdit ? 'Pilih Kategori Yang Ada' : '+ Kategori Baru' }}
                             </button>
@@ -1147,12 +1166,12 @@ function getStatusBadge(status) {
                             v-model="customCategoryInputEdit"
                             type="text"
                             placeholder="Ketik kategori baru..."
-                            class="w-full bg-slate-950 border border-amber-500/50 rounded-lg px-3 py-2 text-white focus:border-amber-500"
+                            class="w-full bg-[#2E3440] border border-[#88C0D0]/50 rounded-lg px-3 py-2 text-[#ECEFF4] focus:border-[#88C0D0]"
                         />
                         <select
                             v-else
                             v-model="editForm.category"
-                            class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-amber-500"
+                            class="w-full bg-[#2E3440] border border-[#4C566A] rounded-lg px-3 py-2 text-[#ECEFF4] focus:border-[#88C0D0]"
                         >
                             <option v-for="cat in mergedCategories" :key="cat" :value="cat">{{ cat }}</option>
                         </select>
@@ -1160,53 +1179,68 @@ function getStatusBadge(status) {
 
                     <!-- Lokasi Rak Penyimpanan -->
                     <div>
-                        <label class="block font-semibold text-slate-300 mb-1">Lokasi Rak & Ambalan</label>
+                        <label class="block font-semibold text-[#A5B1C2] mb-1">Lokasi Rak & Ambalan</label>
                         <input
                             v-model="editForm.location"
                             type="text"
                             placeholder="cth: Zone A (A-01) Rak 1"
-                            class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono focus:border-amber-500"
+                            class="w-full bg-[#2E3440] border border-[#4C566A] rounded-lg px-3 py-2 text-[#ECEFF4] font-mono focus:border-[#88C0D0]"
                             required
                         />
                     </div>
 
                     <!-- Multi-UoM Konfigurasi -->
-                    <div class="p-3 bg-slate-950/60 border border-slate-800 rounded-xl space-y-3">
+                    <div class="p-3 bg-[#2E3440] border border-[#4C566A]/60 rounded-xl space-y-3">
                         <div class="flex items-center justify-between">
-                            <span class="font-bold text-slate-200">Satuan & Konversi Bertingkat</span>
+                            <span class="font-bold text-[#ECEFF4]">Satuan & Konversi Bertingkat</span>
                             <label class="inline-flex items-center cursor-pointer gap-2">
                                 <input type="checkbox" v-model="enablePackagingEdit" class="sr-only peer" />
-                                <div class="w-8 h-4 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-amber-500"></div>
-                                <span class="text-[11px] text-slate-400">Gunakan Kemasan</span>
+                                <div class="w-8 h-4 bg-[#434C5E] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-[#5E81AC]"></div>
+                                <span class="text-[11px] text-[#A5B1C2]">Gunakan Kemasan</span>
                             </label>
                         </div>
 
                         <div class="grid grid-cols-2 gap-3">
                             <div>
-                                <label class="block text-slate-400 text-[11px] mb-1">Satuan Dasar</label>
-                                <input
+                                <label class="block text-[#A5B1C2] text-[11px] mb-1">Satuan Dasar</label>
+                                <select
                                     v-model="editForm.base_unit"
-                                    type="text"
-                                    class="w-full bg-slate-900 border border-slate-700 rounded px-2.5 py-1.5 text-white"
-                                />
+                                    class="w-full bg-[#3B4252] border border-[#4C566A] rounded px-2.5 py-1.5 text-[#ECEFF4] focus:border-[#88C0D0]"
+                                >
+                                    <option value="Pcs">Pcs</option>
+                                    <option value="Liter">Liter</option>
+                                    <option value="Roll">Roll</option>
+                                    <option value="Botol">Botol</option>
+                                    <option value="Box">Box</option>
+                                    <option value="Unit">Unit</option>
+                                    <option value="Kg">Kg</option>
+                                    <option value="Meter">Meter</option>
+                                </select>
                             </div>
                             <div v-if="enablePackagingEdit">
-                                <label class="block text-slate-400 text-[11px] mb-1">Satuan Kemasan</label>
-                                <input
+                                <label class="block text-[#A5B1C2] text-[11px] mb-1">Satuan Kemasan</label>
+                                <select
                                     v-model="editForm.packaging_unit"
-                                    type="text"
-                                    class="w-full bg-slate-900 border border-slate-700 rounded px-2.5 py-1.5 text-white"
-                                />
+                                    class="w-full bg-[#3B4252] border border-[#4C566A] rounded px-2.5 py-1.5 text-[#ECEFF4] focus:border-[#88C0D0]"
+                                >
+                                    <option value="Box">Box</option>
+                                    <option value="Karton">Karton</option>
+                                    <option value="Pail">Pail</option>
+                                    <option value="Pack">Pack</option>
+                                    <option value="Ikat">Ikat</option>
+                                    <option value="Jerigen">Jerigen</option>
+                                    <option value="Dus">Dus</option>
+                                </select>
                             </div>
                         </div>
 
                         <div v-if="enablePackagingEdit">
-                            <label class="block text-slate-400 text-[11px] mb-1">Faktor Konversi (1 {{ editForm.packaging_unit }} = X {{ editForm.base_unit }})</label>
+                            <label class="block text-[#A5B1C2] text-[11px] mb-1">Faktor Konversi (1 {{ editForm.packaging_unit }} = X {{ editForm.base_unit }})</label>
                             <input
                                 v-model.number="editForm.conversion_factor"
                                 type="number"
                                 min="2"
-                                class="w-full bg-slate-900 border border-slate-700 rounded px-2.5 py-1.5 text-white font-mono"
+                                class="w-full bg-[#3B4252] border border-[#4C566A] rounded px-2.5 py-1.5 text-[#ECEFF4] font-mono"
                             />
                         </div>
                     </div>
@@ -1214,22 +1248,22 @@ function getStatusBadge(status) {
                     <!-- Stok & Batas Minimum -->
                     <div class="grid grid-cols-2 gap-3">
                         <div>
-                            <label class="block font-semibold text-slate-300 mb-1">Stok Aktual (Dalam {{ editForm.base_unit }})</label>
+                            <label class="block font-semibold text-[#A5B1C2] mb-1">Stok Aktual (Dalam {{ editForm.base_unit }})</label>
                             <input
                                 v-model.number="editForm.stock"
                                 type="number"
                                 min="0"
-                                class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono font-bold"
+                                class="w-full bg-[#2E3440] border border-[#4C566A] rounded-lg px-3 py-2 text-[#ECEFF4] font-mono font-bold"
                                 required
                             />
                         </div>
                         <div>
-                            <label class="block font-semibold text-slate-300 mb-1">Batas Minimum Stok</label>
+                            <label class="block font-semibold text-[#A5B1C2] mb-1">Batas Minimum Stok</label>
                             <input
                                 v-model.number="editForm.min_stock"
                                 type="number"
                                 min="0"
-                                class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono"
+                                class="w-full bg-[#2E3440] border border-[#4C566A] rounded-lg px-3 py-2 text-[#ECEFF4] font-mono"
                             />
                         </div>
                     </div>
@@ -1237,16 +1271,16 @@ function getStatusBadge(status) {
                     <!-- Kondisi & Status -->
                     <div class="grid grid-cols-2 gap-3">
                         <div>
-                            <label class="block font-semibold text-slate-300 mb-1">Kondisi</label>
-                            <select v-model="editForm.condition" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white">
+                            <label class="block font-semibold text-[#A5B1C2] mb-1">Kondisi</label>
+                            <select v-model="editForm.condition" class="w-full bg-[#2E3440] border border-[#4C566A] rounded-lg px-3 py-2 text-[#ECEFF4]">
                                 <option value="Good">Good</option>
                                 <option value="Fair">Fair</option>
                                 <option value="Damaged">Damaged</option>
                             </select>
                         </div>
                         <div>
-                            <label class="block font-semibold text-slate-300 mb-1">Status</label>
-                            <select v-model="editForm.status" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white">
+                            <label class="block font-semibold text-[#A5B1C2] mb-1">Status</label>
+                            <select v-model="editForm.status" class="w-full bg-[#2E3440] border border-[#4C566A] rounded-lg px-3 py-2 text-[#ECEFF4]">
                                 <option value="Ready">Ready</option>
                                 <option value="Low Stock">Low Stock</option>
                                 <option value="In Maintenance">In Maintenance</option>
@@ -1255,18 +1289,18 @@ function getStatusBadge(status) {
                     </div>
 
                     <!-- Modal Actions -->
-                    <div class="pt-4 flex items-center justify-end gap-2.5 border-t border-slate-800">
+                    <div class="pt-4 flex items-center justify-end gap-2.5 border-t border-[#4C566A]/60">
                         <button
                             type="button"
                             @click="showEditModal = false"
-                            class="px-4 py-2 rounded-lg bg-slate-800 text-slate-300 font-semibold hover:bg-slate-700"
+                            class="px-4 py-2 rounded-lg bg-[#2E3440] text-[#A5B1C2] hover:text-[#ECEFF4] font-semibold hover:bg-[#434C5E]"
                         >
                             Batal
                         </button>
                         <button
                             type="submit"
                             :disabled="isSubmittingEdit"
-                            class="px-5 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold shadow-lg shadow-blue-600/20 disabled:opacity-50 flex items-center gap-1.5"
+                            class="px-5 py-2 rounded-lg bg-[#5E81AC] hover:bg-[#81A1C1] text-[#ECEFF4] font-bold shadow-md disabled:opacity-50 flex items-center gap-1.5 active:scale-95"
                         >
                             <svg v-if="isSubmittingEdit" class="animate-spin h-3.5 w-3.5" viewBox="0 0 24 24">
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
@@ -1282,31 +1316,31 @@ function getStatusBadge(status) {
         <!-- ================================================================= -->
         <!-- MODAL 3: Konfirmasi Hapus Barang (DELETE)                         -->
         <!-- ================================================================= -->
-        <div v-if="showDeleteModal && itemToDelete" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
-                <div class="flex items-center gap-3 text-rose-400">
-                    <span class="p-2 bg-rose-500/10 border border-rose-500/20 rounded-xl">
+        <div v-if="showDeleteModal && itemToDelete" class="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
+            <div class="bg-[#3B4252] border border-[#4C566A]/60 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4 text-[#ECEFF4]">
+                <div class="flex items-center gap-3 text-[#BF616A]">
+                    <span class="p-2 bg-[#BF616A]/15 border border-[#BF616A]/30 rounded-xl">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
                         </svg>
                     </span>
                     <div>
-                        <h3 class="text-base font-bold text-white">Konfirmasi Hapus Barang</h3>
-                        <p class="text-xs text-slate-400">Tindakan ini permanen dan tidak dapat dibatalkan.</p>
+                        <h3 class="text-base font-bold text-[#ECEFF4]">Konfirmasi Hapus Barang</h3>
+                        <p class="text-xs text-[#A5B1C2]">Tindakan ini permanen dan tidak dapat dibatalkan.</p>
                     </div>
                 </div>
 
-                <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-xs space-y-1.5">
-                    <div class="font-bold text-white text-sm">{{ itemToDelete.name }}</div>
-                    <div class="text-slate-400">SKU: <span class="font-mono text-amber-400">{{ itemToDelete.code }}</span></div>
-                    <div class="text-slate-400">Stok Saat Ini: <span class="font-mono text-emerald-400 font-bold">{{ itemToDelete.formatted_stock }}</span></div>
+                <div class="p-3.5 rounded-xl bg-[#2E3440] border border-[#4C566A]/60 text-xs space-y-1.5">
+                    <div class="font-bold text-[#ECEFF4] text-sm">{{ itemToDelete.name }}</div>
+                    <div class="text-[#A5B1C2]">SKU: <span class="font-mono text-[#88C0D0]">{{ itemToDelete.code }}</span></div>
+                    <div class="text-[#A5B1C2]">Stok Saat Ini: <span class="font-mono text-[#A3BE8C] font-bold">{{ itemToDelete.formatted_stock }}</span></div>
                 </div>
 
                 <div class="flex items-center justify-end gap-2.5 pt-2">
                     <button
                         type="button"
                         @click="showDeleteModal = false"
-                        class="px-4 py-2 rounded-lg bg-slate-800 text-slate-300 font-semibold text-xs hover:bg-slate-700"
+                        class="px-4 py-2 rounded-lg bg-[#2E3440] text-[#A5B1C2] hover:text-[#ECEFF4] font-semibold text-xs hover:bg-[#434C5E]"
                     >
                         Batal
                     </button>
@@ -1314,7 +1348,7 @@ function getStatusBadge(status) {
                         type="button"
                         @click="confirmDeleteItem"
                         :disabled="isDeleting"
-                        class="px-5 py-2 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs shadow-lg shadow-rose-600/20 disabled:opacity-50 flex items-center gap-1.5"
+                        class="px-5 py-2 rounded-lg bg-[#BF616A] hover:bg-[#BF616A]/90 text-[#ECEFF4] font-bold text-xs shadow-md disabled:opacity-50 flex items-center gap-1.5 active:scale-95"
                     >
                         <svg v-if="isDeleting" class="animate-spin h-3.5 w-3.5" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>

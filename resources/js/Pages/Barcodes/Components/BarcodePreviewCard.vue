@@ -26,7 +26,7 @@ async function renderLivePreview() {
             try {
                 JsBarcode(previewSvgRef.value, code, {
                     format: 'CODE128',
-                    lineColor: '#0f172a',
+                    lineColor: '#2E3440',
                     width: 2.2,
                     height: 58,
                     displayValue: true,
@@ -51,7 +51,7 @@ async function renderLivePreview() {
                     width: 130,
                     margin: 1,
                     color: {
-                        dark: '#0f172a',
+                        dark: '#2E3440',
                         light: '#ffffff',
                     },
                 });
@@ -77,17 +77,17 @@ onMounted(() => {
 
 <template>
     <!-- Physical Warehouse Sticker Card Preview -->
-    <div class="bg-slate-950/80 border border-slate-800 rounded-xl p-5 shadow-lg flex flex-col">
-        <div class="flex items-center justify-between pb-3 border-b border-slate-800 text-xs">
-            <span class="font-bold text-slate-200 uppercase tracking-wider flex items-center gap-1.5">
-                <span class="h-2 w-2 rounded-full bg-amber-400"></span>
+    <div class="bg-[#3B4252] border border-[#4C566A]/60 rounded-xl p-5 shadow-lg flex flex-col">
+        <div class="flex items-center justify-between pb-3 border-b border-[#4C566A]/60 text-xs">
+            <span class="font-bold text-[#ECEFF4] uppercase tracking-wider flex items-center gap-1.5">
+                <span class="h-2 w-2 rounded-full bg-[#88C0D0]"></span>
                 Live Preview Stiker Rak Gudang
             </span>
-            <span class="text-slate-400 font-mono text-[11px]">Label Ukuran Standar</span>
+            <span class="text-[#A5B1C2] font-mono text-[11px]">Label Ukuran Standar</span>
         </div>
 
-        <!-- Industrial Label Mockup (High Contrast White Card) -->
-        <div class="mt-4 p-4 bg-white text-slate-900 rounded-lg border-2 border-dashed border-amber-500/60 shadow-xl flex flex-col items-center select-none">
+        <!-- Industrial Label Mockup (High Contrast White Card for actual thermal paper look) -->
+        <div class="mt-4 p-4 bg-white text-slate-900 rounded-lg border-2 border-dashed border-[#5E81AC] shadow-xl flex flex-col items-center select-none">
             <!-- Top Strip: Facility and Zone -->
             <div class="w-full flex items-center justify-between pb-2 border-b-2 border-slate-900 font-bold text-xs uppercase tracking-wider">
                 <div class="flex items-center gap-1.5 text-slate-800">
@@ -123,7 +123,7 @@ onMounted(() => {
             </div>
         </div>
 
-        <div class="mt-3 text-center text-xs text-slate-400">
+        <div class="mt-3 text-center text-xs text-[#A5B1C2]">
             Label ini siap dicetak langsung pada stiker thermal atau kertas label rak gudang.
         </div>
     </div>

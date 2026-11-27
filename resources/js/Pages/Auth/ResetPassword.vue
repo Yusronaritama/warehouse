@@ -37,14 +37,14 @@ const submit = () => {
 
         <div class="mb-5">
             <div class="flex items-center gap-2 mb-2">
-                <span class="p-1.5 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                <span class="p-1.5 rounded-lg bg-[#88C0D0]/15 text-[#88C0D0] border border-[#88C0D0]/30">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
                     </svg>
                 </span>
-                <h2 class="text-lg font-bold text-white tracking-tight">Atur Ulang Kata Sandi</h2>
+                <h2 class="text-lg font-bold text-[#ECEFF4] tracking-tight">Atur Ulang Kata Sandi</h2>
             </div>
-            <p class="text-xs text-slate-400 leading-relaxed">
+            <p class="text-xs text-[#A5B1C2] leading-relaxed">
                 Verifikasi alamat email Anda dan buat kata sandi baru untuk mengamankan akses terminal gudang.
             </p>
         </div>
@@ -55,13 +55,13 @@ const submit = () => {
                 <InputLabel
                     for="email"
                     value="Kolom Verifikasi Email Petugas"
-                    class="!text-slate-300 !font-semibold text-xs"
+                    class="!text-[#D8DEE9] !font-semibold text-xs"
                 />
 
                 <TextInput
                     id="email"
                     type="email"
-                    class="mt-1.5 block w-full !bg-slate-950 !border-slate-700 !text-white focus:!border-amber-500 focus:!ring-amber-500 font-mono text-sm"
+                    class="mt-1.5 block w-full !bg-[#2E3440] !border-[#4C566A] !text-[#ECEFF4] placeholder-[#8C96A9] focus:!border-[#88C0D0] focus:!ring-[#88C0D0] font-mono text-sm"
                     v-model="form.email"
                     required
                     autofocus
@@ -77,20 +77,20 @@ const submit = () => {
                 <InputLabel
                     for="token"
                     value="Token / Kode Verifikasi Reset"
-                    class="!text-slate-300 !font-semibold text-xs"
+                    class="!text-[#D8DEE9] !font-semibold text-xs"
                 />
 
                 <TextInput
                     id="token"
                     type="text"
-                    class="mt-1.5 block w-full !bg-slate-950 !border-slate-700 !text-white focus:!border-amber-500 focus:!ring-amber-500 font-mono text-sm"
+                    class="mt-1.5 block w-full !bg-[#2E3440] !border-[#4C566A] !text-[#ECEFF4] placeholder-[#8C96A9] focus:!border-[#88C0D0] focus:!ring-[#88C0D0] font-mono text-sm"
                     v-model="form.token"
                     required
                     placeholder="Masukkan token verifikasi dari email"
                 />
 
                 <InputError class="mt-1.5" :message="form.errors.token" />
-                <span class="text-[11px] text-slate-500 mt-1 block">
+                <span class="text-[11px] text-[#A5B1C2] mt-1 block">
                     Diisi otomatis dari link email atau diketik secara manual.
                 </span>
             </div>
@@ -100,13 +100,13 @@ const submit = () => {
                 <InputLabel
                     for="password"
                     value="Kata Sandi Baru"
-                    class="!text-slate-300 !font-semibold text-xs"
+                    class="!text-[#D8DEE9] !font-semibold text-xs"
                 />
 
                 <TextInput
                     id="password"
                     type="password"
-                    class="mt-1.5 block w-full !bg-slate-950 !border-slate-700 !text-white focus:!border-amber-500 focus:!ring-amber-500 text-sm"
+                    class="mt-1.5 block w-full !bg-[#2E3440] !border-[#4C566A] !text-[#ECEFF4] placeholder-[#8C96A9] focus:!border-[#88C0D0] focus:!ring-[#88C0D0] text-sm"
                     v-model="form.password"
                     required
                     autocomplete="new-password"
@@ -121,13 +121,13 @@ const submit = () => {
                 <InputLabel
                     for="password_confirmation"
                     value="Konfirmasi Kata Sandi Baru"
-                    class="!text-slate-300 !font-semibold text-xs"
+                    class="!text-[#D8DEE9] !font-semibold text-xs"
                 />
 
                 <TextInput
                     id="password_confirmation"
                     type="password"
-                    class="mt-1.5 block w-full !bg-slate-950 !border-slate-700 !text-white focus:!border-amber-500 focus:!ring-amber-500 text-sm"
+                    class="mt-1.5 block w-full !bg-[#2E3440] !border-[#4C566A] !text-[#ECEFF4] placeholder-[#8C96A9] focus:!border-[#88C0D0] focus:!ring-[#88C0D0] text-sm"
                     v-model="form.password_confirmation"
                     required
                     autocomplete="new-password"
@@ -140,7 +140,7 @@ const submit = () => {
             <!-- Submit Button -->
             <div class="pt-2">
                 <PrimaryButton
-                    class="w-full justify-center !bg-amber-500 hover:!bg-amber-400 !text-slate-950 !font-bold !py-2.5 !rounded-lg !border-0 shadow-lg shadow-amber-500/20 text-xs"
+                    class="w-full justify-center !bg-[#5E81AC] hover:!bg-[#81A1C1] !text-[#ECEFF4] !font-bold !py-2.5 !rounded-lg !border-0 shadow-lg shadow-[#5E81AC]/25 text-xs"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
@@ -150,10 +150,10 @@ const submit = () => {
         </form>
 
         <!-- Footer Navigasi -->
-        <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+        <div class="mt-5 pt-4 border-t border-[#4C566A]/60 flex items-center justify-between text-xs text-[#A5B1C2]">
             <Link
                 :href="route('password.request')"
-                class="hover:text-amber-400 transition-colors flex items-center gap-1"
+                class="hover:text-[#88C0D0] transition-colors flex items-center gap-1"
             >
                 <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
@@ -163,7 +163,7 @@ const submit = () => {
 
             <Link
                 :href="route('login')"
-                class="hover:text-amber-400 transition-colors"
+                class="hover:text-[#88C0D0] transition-colors"
             >
                 Masuk ke Login &rarr;
             </Link>

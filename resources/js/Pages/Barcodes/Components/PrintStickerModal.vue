@@ -107,18 +107,18 @@ function formatDate(isoString) {
 <template>
     <div
         v-if="modelValue && barcode"
-        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm"
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs"
     >
-        <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-md w-full p-6 shadow-2xl relative text-slate-100">
-            <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div class="bg-[#3B4252] border border-[#4C566A]/60 rounded-2xl max-w-md w-full p-6 shadow-2xl relative text-[#ECEFF4]">
+            <div class="flex items-center justify-between pb-3 border-b border-[#4C566A]/60">
                 <div>
-                    <h3 class="text-base font-bold text-white">Cetak Stiker Rak Gudang</h3>
-                    <p class="text-xs text-slate-400">Siap dicetak untuk penempelan fisik pada rak.</p>
+                    <h3 class="text-base font-bold text-[#ECEFF4]">Cetak Stiker Rak Gudang</h3>
+                    <p class="text-xs text-[#A5B1C2]">Siap dicetak untuk penempelan fisik pada rak.</p>
                 </div>
                 <button
                     type="button"
                     @click="closeModal"
-                    class="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800"
+                    class="p-1 rounded-lg text-[#A5B1C2] hover:text-[#ECEFF4] hover:bg-[#434C5E] transition-colors"
                 >
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -161,18 +161,18 @@ function formatDate(isoString) {
             </div>
 
             <!-- Actions inside modal -->
-            <div class="flex items-center justify-end gap-3 pt-3 border-t border-slate-800">
+            <div class="flex items-center justify-end gap-3 pt-3 border-t border-[#4C566A]/60">
                 <button
                     type="button"
                     @click="closeModal"
-                    class="px-4 py-2 text-xs font-semibold text-slate-300 hover:bg-slate-800 rounded-lg transition-colors"
+                    class="px-4 py-2 text-xs font-semibold text-[#A5B1C2] hover:text-[#ECEFF4] hover:bg-[#434C5E] rounded-lg transition-colors"
                 >
                     Tutup
                 </button>
                 <button
                     type="button"
                     @click="executePrint"
-                    class="px-5 py-2.5 text-xs font-bold text-slate-950 bg-amber-400 hover:bg-amber-300 rounded-lg shadow-md flex items-center gap-2 transition-all"
+                    class="px-5 py-2.5 text-xs font-bold text-[#ECEFF4] bg-[#5E81AC] hover:bg-[#81A1C1] rounded-lg shadow-md flex items-center gap-2 transition-all active:scale-95"
                 >
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
