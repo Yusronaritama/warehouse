@@ -665,6 +665,8 @@ onMounted(() => {
 
 /* Footer */
 .wh-footer {
+    position: relative;
+    z-index: 10;
     border-top: 1px solid #3B4252;
     background: #242933;
     padding: 2.25rem 1.5rem;
